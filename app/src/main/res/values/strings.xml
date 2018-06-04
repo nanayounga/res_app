@@ -8,12 +8,17 @@
     <string name="sign_in_footer">Do not have an account?</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
+    <string name="signed_out">Signed Out</string>
     <string name="your_phone">Your Phone</string>
     <string name="your_email">Your Email</string>
     <string name="password">Password</string>
+
+    <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
+    <string name="firebase_status_fmt">Firebase User: %s</string>
     <!-- Sign Up -->
     <string name="sign_up_title">Sign up with email</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="auth_failed">Authentication failed</string>
     <!-- Verification code -->
     <string name="verification_title">Verification code</string>
     <string name="verification_message">SMS verification code has been sent to:</string>
@@ -35,4 +40,6 @@
     <!-- Favorite -->
     <string name="title_favorite">My Favorites</string>
 
+
+    <string name="loading">Loading…</string>
 </resources>

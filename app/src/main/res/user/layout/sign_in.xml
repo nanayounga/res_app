@@ -57,10 +57,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:ems="10"
-                android:inputType="textPassword"
+                android:inputType="textEmailAddress"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/email_label" />
@@ -82,7 +81,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:ems="10"
                 android:inputType="textPassword"
@@ -92,6 +90,39 @@
 
         </android.support.constraint.ConstraintLayout>
 
+        <TextView
+            android:id="@+id/detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+            tools:text="abcfsd fsdfsdfsdfsdfsdfsdfsdfsdf" />
+
+        <Button
+            android:id="@+id/verify_email_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/sign_in"
+            android:text="Send Email Verify"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detail"/>
+
+        <Button
+            android:id="@+id/btnSignOut"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/sign_in"
+            android:text="SignOut"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/verify_email_button" />
         <Button
             android:id="@+id/btnSignIn"
             android:layout_width="0dp"
@@ -99,7 +130,6 @@
             android:layout_marginBottom="24dp"
             android:background="@drawable/sign_in"
             android:text="@string/sign_in"
-            android:onClick="openVerificationActivity"
             android:textAlignment="center"
             android:textColor="@color/colorWhite"
             android:textSize="18sp"
@@ -120,29 +150,28 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/signup_question"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/sign_in_footer"
                 android:textAlignment="textEnd"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toStartOf="@+id/textView6"
+                app:layout_constraintEnd_toStartOf="@+id/signup_link"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/signup_link"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginStart="8dp"
                 android:text="@string/sign_up"
-                android:onClick="openSignUpActivity"
                 android:textAlignment="textStart"
                 android:textColor="@color/colorNavi"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView3"
+                app:layout_constraintStart_toEndOf="@+id/signup_question"
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
 
