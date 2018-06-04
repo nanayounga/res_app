@@ -4,14 +4,15 @@
 
     <string name="welcome">Curated foof recommendation for Runway members.</string>
     <!-- Sign In -->
-    <string name="sign_in_title">Sign in with mobile number</string>
+    <string name="sign_in_title">Sign in with email</string>
     <string name="sign_in_footer">Do not have an account?</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
     <string name="your_phone">Your Phone</string>
+    <string name="your_email">Your Email</string>
     <string name="password">Password</string>
     <!-- Sign Up -->
-    <string name="sign_up_title">Sign up with mobile number</string>
+    <string name="sign_up_title">Sign up with email</string>
     <string name="confirm_password">Confirm Password</string>
     <!-- Verification code -->
     <string name="verification_title">Verification code</string>
