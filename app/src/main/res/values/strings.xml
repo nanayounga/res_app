@@ -25,7 +25,7 @@
     <string name="pin_code">Pin Code</string>
     <string name="button_next">Next</string>
     <!-- Profile -->
-    <string name="address">Address</string>
+    <string name="user_name">Name</string>
     <string name="phone_number">Phone number</string>
     <string name="email">Email</string>
     <!-- Setting -->

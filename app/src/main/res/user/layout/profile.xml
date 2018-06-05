@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintLayout27"
+            android:id="@+id/constraintLayoutTop"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -59,10 +59,10 @@
             android:background="@drawable/img_profile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout27" />
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayoutTop" />
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintLayout28"
+            android:id="@+id/constraintLayoutName"
             android:layout_width="365dp"
             android:layout_height="39dp"
             android:layout_marginTop="32dp"
@@ -71,61 +71,21 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView6">
 
             <TextView
-                android:id="@+id/textView38"
+                android:id="@+id/name_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/address"
-                app:layout_constraintEnd_toStartOf="@+id/textView34"
+                android:text="@string/user_name"
+                app:layout_constraintEnd_toStartOf="@+id/name_field"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView34"
+                android:id="@+id/name_field"
                 android:layout_width="268dp"
                 android:layout_height="28dp"
                 android:gravity="right"
-                android:text="So 168 Nguyen Xien, Thanh Xuan, Ha Noi"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView38"
-                app:layout_constraintTop_toTopOf="parent" />
-        </android.support.constraint.ConstraintLayout>
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintLayout29"
-            android:layout_width="365dp"
-            android:layout_height="39dp"
-            android:background="@drawable/line_profile"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout28">
-
-        </android.support.constraint.ConstraintLayout>
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintLayout30"
-            android:layout_width="365dp"
-            android:layout_height="39dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout29">
-
-            <TextView
-                android:id="@+id/textView40"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/phone_number"
-                app:layout_constraintEnd_toStartOf="@+id/textView39"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView39"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:text="+84 98 5234 812"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView40"
+                app:layout_constraintStart_toEndOf="@+id/name_label"
                 app:layout_constraintTop_toTopOf="parent" />
         </android.support.constraint.ConstraintLayout>
 
@@ -136,7 +96,7 @@
             android:background="@drawable/line_profile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout30">
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayoutName">
 
         </android.support.constraint.ConstraintLayout>
 
@@ -149,39 +109,66 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout31">
 
             <TextView
-                android:id="@+id/textView42"
+                android:id="@+id/email_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@string/email"
-                app:layout_constraintEnd_toStartOf="@+id/textView41"
+                app:layout_constraintEnd_toStartOf="@+id/email_field"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView41"
+                android:id="@+id/email_field"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:text="huuluong.acc@gmail.com"
+
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textView42"
+                app:layout_constraintStart_toEndOf="@+id/email_label"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
 
-        <Button
-            android:id="@+id/button8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/setting"
-            android:textColor="@color/colorWhite"
-            android:onClick="openSettingActivity"
-            android:background="@drawable/sign_in"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayoutSpace"
+            android:layout_width="365dp"
+            android:layout_height="39dp"
+            android:background="@drawable/line_profile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout33" />
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout33">
 
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayoutPassword"
+            android:layout_width="365dp"
+            android:layout_height="39dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayoutSpace">
+
+            <TextView
+                android:id="@+id/password_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/password"
+                app:layout_constraintEnd_toStartOf="@+id/password_change_link"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/password_change_link"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="Change Password"
+                android:textColor="@color/colorNavi"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/password_label"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
 </layout>

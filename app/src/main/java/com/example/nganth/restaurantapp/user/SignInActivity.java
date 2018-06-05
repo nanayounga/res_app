@@ -82,8 +82,11 @@ public class SignInActivity extends BaseActivity implements
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "signInWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                updateUI(user);
+                                //FirebaseUser user = mAuth.getCurrentUser();
+                                //updateUI(user);
+                                //Open profile user
+                                android.content.Intent intent = new android.content.Intent(getApplicationContext(), ProfileActivity.class);
+                                startActivity(intent);
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
