@@ -49,7 +49,6 @@ public class SignInActivity extends BaseActivity implements
             // Buttons
             findViewById(R.id.btnSignIn).setOnClickListener(this);
             findViewById(R.id.verify_email_button).setOnClickListener(this);
-            findViewById(R.id.btnSignOut).setOnClickListener(this);
             findViewById(R.id.signup_link).setOnClickListener(this);
             // [START initialize_auth]
             mAuth = FirebaseAuth.getInstance();
@@ -82,24 +81,28 @@ public class SignInActivity extends BaseActivity implements
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "signInWithEmail:success");
-                                //FirebaseUser user = mAuth.getCurrentUser();
-                                //updateUI(user);
-                                //Open profile user
-                                android.content.Intent intent = new android.content.Intent(getApplicationContext(), ProfileActivity.class);
-                                startActivity(intent);
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                //
+                                if(user.isEmailVerified()){
+                                    //Open profile user
+                                    android.content.Intent intent = new android.content.Intent(getApplicationContext(), ProfileActivity.class);
+                                    startActivity(intent);
+                                }else{
+                                    updateUI(user);
+                                    Toast.makeText(com.example.nganth.restaurantapp.user.SignInActivity.this, "Please veriry your email.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
                                 Toast.makeText(com.example.nganth.restaurantapp.user.SignInActivity.this, "Authentication failed.",
                                         Toast.LENGTH_SHORT).show();
+
+                                mDetailTextView.setText(R.string.auth_failed);
+
                                 updateUI(null);
                             }
 
-                            // [START_EXCLUDE]
-
-                            if (!task.isSuccessful()) {
-                                mDetailTextView.setText(R.string.auth_failed);
-                            }
                             hideProgressDialog();
                             // [END_EXCLUDE]
                         }
@@ -168,11 +171,10 @@ public class SignInActivity extends BaseActivity implements
             hideProgressDialog();
            if (user != null) {
                 String user_detail = getString(R.string.emailpassword_status_fmt,
-                        user.getEmail(), user.isEmailVerified()) + "***" +getString(R.string.firebase_status_fmt, user.getUid());
+                        user.getEmail(), user.isEmailVerified());
                 mDetailTextView.setText(user_detail);
 
                 findViewById(R.id.btnSignIn).setVisibility(View.INVISIBLE);
-                findViewById(R.id.btnSignOut).setVisibility(View.VISIBLE);
                 if(user.isEmailVerified()){
                     findViewById(R.id.verify_email_button).setVisibility(View.INVISIBLE);
                 }else{
@@ -182,7 +184,6 @@ public class SignInActivity extends BaseActivity implements
                 mDetailTextView.setText(null);
 
                findViewById(R.id.btnSignIn).setVisibility(View.VISIBLE);
-               findViewById(R.id.btnSignOut).setVisibility(View.INVISIBLE);
                findViewById(R.id.verify_email_button).setVisibility(View.INVISIBLE);
             }
         }
@@ -200,9 +201,6 @@ public class SignInActivity extends BaseActivity implements
             }
             else if (i == R.id.verify_email_button) {
                 sendEmailVerification();
-            }
-            else if (i == R.id.btnSignOut) {
-                signOut();
             }
         }
     }
