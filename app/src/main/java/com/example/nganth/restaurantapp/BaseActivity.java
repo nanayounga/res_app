@@ -4,6 +4,8 @@ package com.example.nganth.restaurantapp;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -17,17 +19,24 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class BaseActivity extends AppCompatActivity {
-
+    public FirebaseUser user;
     @VisibleForTesting
     public ProgressDialog mProgressDialog;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // [START initialize_auth]
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        // [END initialize_auth]
+    }
 
     @SuppressLint("ResourceType")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        // [START initialize_auth]
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        // [END initialize_auth]
+
         if(user != null){
             inflater.inflate(R.layout.menu_main, menu);
         }else{

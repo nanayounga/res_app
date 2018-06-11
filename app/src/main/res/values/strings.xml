@@ -40,6 +40,6 @@
     <!-- Favorite -->
     <string name="title_favorite">My Favorites</string>
 
-
+    <string name="save">Save</string>
     <string name="loading">Loading…</string>
 </resources>
