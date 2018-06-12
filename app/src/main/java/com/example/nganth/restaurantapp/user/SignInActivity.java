@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.example.nganth.restaurantapp.BaseActivity;
 import com.example.nganth.restaurantapp.R;
+import com.example.nganth.restaurantapp.restaurant.RestaurantActivity;
+import com.example.nganth.restaurantapp.restaurant.WalkthoughtFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -85,7 +87,8 @@ public class SignInActivity extends BaseActivity implements
                                 //
                                 if(user.isEmailVerified()){
                                     //Open profile user
-                                    android.content.Intent intent = new android.content.Intent(getApplicationContext(), ProfileActivity.class);
+//                                    android.content.Intent intent = new android.content.Intent(getApplicationContext(), ProfileActivity.class);
+                                    android.content.Intent intent = new android.content.Intent(getApplicationContext(), RestaurantActivity.class);
                                     startActivity(intent);
                                 }else{
                                     updateUI(user);

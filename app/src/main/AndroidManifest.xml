@@ -19,16 +19,26 @@
         <activity android:name=".user.SignInActivity" />
         <activity android:name=".user.SignUpActivity" />
         <activity android:name=".user.VerificationActivity" />
-        <activity android:name=".restaurant.WalkthoughtActivity" />
+        <activity android:name=".restaurant.WalkthoughtActivity" >
+
+        </activity>
         <activity android:name=".search.SearchActivity" />
         <activity android:name=".search.ResultActivity" />
-        <activity android:name=".restaurant.MenuActivity" />
+        <activity android:name=".restaurant.MenuActivity">
+
+        </activity>
         <activity android:name=".restaurant.AboutActivity" />
         <activity android:name=".user.FavoriteActivity" />
         <activity android:name=".user.SettingActivity" />
         <activity android:name=".user.ProfileActivity" />
         <activity android:name=".restaurant.ReviewActivity" />
-        <activity android:name=".user.ChangePasswordActivity"></activity>
+        <activity android:name=".user.ChangePasswordActivity" />
+        <activity
+            android:name=".restaurant.RestaurantActivity"
+            android:label="@string/title_activity_restaurant"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>
