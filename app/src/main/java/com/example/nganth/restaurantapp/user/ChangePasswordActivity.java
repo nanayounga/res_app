@@ -81,6 +81,11 @@ public class ChangePasswordActivity extends BaseActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "User password updated.");
+                            mAuth.signOut();
+                            android.content.Intent intent = new android.content.Intent(getApplicationContext(), SignInActivity.class);
+                            startActivity(intent);
+                        }else{
+                            Log.d(TAG, task.getException().getMessage());
                         }
 
                         hideProgressDialog();
