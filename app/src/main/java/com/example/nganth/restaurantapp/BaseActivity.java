@@ -14,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.example.nganth.restaurantapp.user.FavoriteActivity;
+import com.example.nganth.restaurantapp.user.ProfileActivity;
 import com.example.nganth.restaurantapp.user.SignInActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -52,16 +54,20 @@ public class BaseActivity extends AppCompatActivity {
             logout();
             return true;
         }else if(id == R.id.action_profile){
-            //Open profile
-        }else{
-            //Open login screen
+            //Open profile user
+            android.content.Intent intent = new android.content.Intent(getApplicationContext(), ProfileActivity.class);
+            startActivity(intent);
+        }else if(id == R.id.action_favorite){
+            //Open favorite user
+            android.content.Intent intent = new android.content.Intent(getApplicationContext(), FavoriteActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void logout() {
         FirebaseAuth.getInstance().signOut();
-        //Open profile user
+        //Open signin user
         android.content.Intent intent = new android.content.Intent(getApplicationContext(), SignInActivity.class);
         startActivity(intent);
     }

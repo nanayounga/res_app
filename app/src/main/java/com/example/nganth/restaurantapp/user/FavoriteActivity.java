@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.widget.Toast;
 
+import com.example.nganth.restaurantapp.BaseActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class FavoriteActivity extends AppCompatActivity {
+public class FavoriteActivity extends BaseActivity {
 
     private com.example.nganth.restaurantapp.databinding.FavoriteBinding binding;
 
