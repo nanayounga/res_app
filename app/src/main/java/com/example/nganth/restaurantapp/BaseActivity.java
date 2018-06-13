@@ -14,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.example.nganth.restaurantapp.restaurant.MenuFragment;
+import com.example.nganth.restaurantapp.restaurant.RestaurantActivity;
 import com.example.nganth.restaurantapp.user.FavoriteActivity;
 import com.example.nganth.restaurantapp.user.ProfileActivity;
 import com.example.nganth.restaurantapp.user.SignInActivity;
@@ -60,6 +62,10 @@ public class BaseActivity extends AppCompatActivity {
         }else if(id == R.id.action_favorite){
             //Open favorite user
             android.content.Intent intent = new android.content.Intent(getApplicationContext(), FavoriteActivity.class);
+            startActivity(intent);
+        }else if(id == R.id.action_walkthought){
+            //Open restaurant menu
+            android.content.Intent intent = new android.content.Intent(getApplicationContext(), RestaurantActivity.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);

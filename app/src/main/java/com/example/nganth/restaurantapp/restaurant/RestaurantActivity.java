@@ -25,7 +25,6 @@ public class RestaurantActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         fragmentManager = getSupportFragmentManager();
         binding = DataBindingUtil.setContentView(this, R.layout.restaurant);
-//        showMenu(null);
         showWalkthought(null);
     }
 
