@@ -44,6 +44,7 @@
     <string name="title_about">About</string>
     <string name="title_review">Review</string>
 
+    <string name="open">Open</string>
     <string name="save">Save</string>
     <string name="loading">Loading…</string>
     <string name="title_activity_restaurant">RestaurantActivity</string>

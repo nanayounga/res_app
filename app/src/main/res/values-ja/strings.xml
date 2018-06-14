@@ -37,6 +37,7 @@
     <string name="title_about">約</string>
     <string name="title_review">レビュー</string>
 
+    <string name="open">開いた</string>
     <string name="save">セーブ</string>
     <string name="loading">読み込み中…</string>
     <string name="title_activity_restaurant">レストランアクティビティ</string>
