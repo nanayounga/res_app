@@ -69,8 +69,7 @@ public class BaseActivity extends AppCompatActivity {
             android.content.Intent intent = new android.content.Intent(getApplicationContext(), RestaurantActivity.class);
             intent.putExtra("flag", "Walkthout");
             startActivity(intent);
-        }
-        else if(id == R.id.action_menu_res){
+        }else if(id == R.id.action_menu_res){
             //Open restaurant menu
             android.content.Intent intent = new android.content.Intent(getApplicationContext(), RestaurantActivity.class);
             intent.putExtra("flag", "ResMenu");
