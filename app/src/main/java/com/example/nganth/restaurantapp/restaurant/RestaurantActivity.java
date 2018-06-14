@@ -1,5 +1,6 @@
 package com.example.nganth.restaurantapp.restaurant;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,12 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.example.nganth.restaurantapp.BaseActivity;
 import com.example.nganth.restaurantapp.R;
 import com.example.nganth.restaurantapp.databinding.MenuBinding;
 import com.example.nganth.restaurantapp.databinding.RestaurantBinding;
 import com.example.nganth.restaurantapp.user.Restaurant;
 
-public class RestaurantActivity extends AppCompatActivity {
+public class RestaurantActivity extends BaseActivity {
 
     private RestaurantBinding binding;
     private FragmentManager fragmentManager;
@@ -25,7 +27,23 @@ public class RestaurantActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         fragmentManager = getSupportFragmentManager();
         binding = DataBindingUtil.setContentView(this, R.layout.restaurant);
-        showWalkthought(null);
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            String flag = intent.getStringExtra("flag");
+            if (flag == null) {
+                showWalkthought(null);
+            } else {
+                switch (flag) {
+                    case "ResMenu":
+                        showMenu(null);
+                        break;
+                    case "Walkthout":
+                        showWalkthought(null);
+                        break;
+                }
+            }
+        }
     }
 
     public void showWalkthought(View view) {

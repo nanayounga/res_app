@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.example.nganth.restaurantapp.restaurant.AboutFragment;
 import com.example.nganth.restaurantapp.restaurant.MenuFragment;
 import com.example.nganth.restaurantapp.restaurant.RestaurantActivity;
 import com.example.nganth.restaurantapp.user.FavoriteActivity;
@@ -40,12 +41,12 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-
-        if(user != null){
-            inflater.inflate(R.layout.menu_main, menu);
+        inflater.inflate(R.menu.menu_main, menu);
+        /*if(user != null){
+            inflater.inflate(R.menu.menu_main, menu);
         }else{
             inflater.inflate(R.layout.menu_login, menu);
-        }
+        }*/
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -64,8 +65,15 @@ public class BaseActivity extends AppCompatActivity {
             android.content.Intent intent = new android.content.Intent(getApplicationContext(), FavoriteActivity.class);
             startActivity(intent);
         }else if(id == R.id.action_walkthought){
+            //Open walkthought
+            android.content.Intent intent = new android.content.Intent(getApplicationContext(), RestaurantActivity.class);
+            intent.putExtra("flag", "Walkthout");
+            startActivity(intent);
+        }
+        else if(id == R.id.action_menu_res){
             //Open restaurant menu
             android.content.Intent intent = new android.content.Intent(getApplicationContext(), RestaurantActivity.class);
+            intent.putExtra("flag", "ResMenu");
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);

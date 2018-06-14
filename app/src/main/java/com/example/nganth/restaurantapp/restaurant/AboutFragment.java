@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.nganth.restaurantapp.BaseActivity;
 import com.example.nganth.restaurantapp.R;
 import com.example.nganth.restaurantapp.databinding.AboutBinding;
 
