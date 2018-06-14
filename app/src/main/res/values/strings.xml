@@ -39,8 +39,13 @@
     <string name="confirm_password_new">Confirm New Password</string>
     <!-- Favorite -->
     <string name="title_favorite">My Favorites</string>
+    <!-- Menu -->
+    <string name="title_menu">Menu</string>
+    <string name="title_about">About</string>
+    <string name="title_review">Review</string>
 
     <string name="save">Save</string>
     <string name="loading">Loading…</string>
     <string name="title_activity_restaurant">RestaurantActivity</string>
+    <string name="title_activity_view_pager_res">ViewPagerResActivity</string>
 </resources>
