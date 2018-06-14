@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.nganth.restaurantapp">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,7 +20,6 @@
         </activity>
         <activity android:name=".user.SignInActivity" />
         <activity android:name=".user.SignUpActivity" />
-        <activity android:name=".user.VerificationActivity" />
         <activity android:name=".user.FavoriteActivity" />
         <activity android:name=".user.ProfileActivity" />
         <activity android:name=".user.ChangePasswordActivity" />
