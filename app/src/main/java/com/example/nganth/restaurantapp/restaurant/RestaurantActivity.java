@@ -35,8 +35,11 @@ public class RestaurantActivity extends BaseActivity {
                 showWalkthought(null);
             } else {
                 switch (flag) {
-                    case "Menu":
+                    case "ResMenu":
                         showMenu(null);
+                        break;
+                    case "Walkthout":
+                        showWalkthought(null);
                         break;
                 }
             }
