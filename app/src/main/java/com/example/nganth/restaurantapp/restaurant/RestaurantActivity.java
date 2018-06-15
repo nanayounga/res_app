@@ -21,6 +21,7 @@ public class RestaurantActivity extends BaseActivity {
 
     private RestaurantBinding binding;
     private FragmentManager fragmentManager;
+    private FragmentTransaction transaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +36,6 @@ public class RestaurantActivity extends BaseActivity {
                 showWalkthought(null);
             } else {
                 switch (flag) {
-                    case "ResMenu":
-                        showMenu(null);
-                        break;
                     case "Walkthout":
                         showWalkthought(null);
                         break;
@@ -49,33 +47,6 @@ public class RestaurantActivity extends BaseActivity {
     public void showWalkthought(View view) {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         WalkthoughtFragment fragment = new WalkthoughtFragment();
-        transaction.replace(R.id.fragmentRestaurant, fragment);
-        transaction.commit();
-    }
-
-    public void showMenu(View view) {
-        // khởi tạo đối tượng hỗ trợ add Fragment vào FragmentManager
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-
-        // thêm fragment Login đã tạo vào
-        MenuFragment fragment = new MenuFragment();
-
-        transaction.replace(R.id.fragmentRestaurant, fragment);
-
-        // yêu cầu thực thi
-        transaction.commit();
-    }
-
-    public void showAbout(View view) {
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        AboutFragment fragment = new AboutFragment();
-        transaction.replace(R.id.fragmentRestaurant, fragment);
-        transaction.commit();
-    }
-
-    public void showReview(View view) {
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        ReviewFragment fragment = new ReviewFragment();
         transaction.replace(R.id.fragmentRestaurant, fragment);
         transaction.commit();
     }
@@ -94,13 +65,8 @@ public class RestaurantActivity extends BaseActivity {
         transaction.commit();
     }
 
-    public void openFavoriteActivity(View view) {
-        android.content.Intent intent = new android.content.Intent(getApplicationContext(), com.example.nganth.restaurantapp.user.FavoriteActivity.class);
+    public void showMenuByLink(View view) {
+        android.content.Intent intent = new android.content.Intent(getApplicationContext(), com.example.nganth.restaurantapp.restaurant.ViewPagerMenuActivity.class);
         startActivity(intent);
     }
-
-//    public void openSearchActivity(View view) {
-//        android.content.Intent intent = new android.content.Intent(getApplicationContext(), com.example.nganth.restaurantapp.search.SearchActivity.class);
-//        startActivity(intent);
-//    }
 }

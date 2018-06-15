@@ -31,7 +31,7 @@ public class MenuFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.menu, container, false);
 
-        RestaurantActivity mainActivity = (RestaurantActivity) getActivity();
+        ViewPagerMenuActivity mainActivity = (ViewPagerMenuActivity) getActivity();
         binding.setVariableMenu(mainActivity);
 
         restaurants.add(new Restaurant("Nha hang 1",null, null));
@@ -56,9 +56,4 @@ public class MenuFragment extends Fragment{
 
         return binding.getRoot();
     }
-
-//    public void openAboutActivity(android.view.View view) {
-//        android.content.Intent intent = new android.content.Intent(getActivity().getApplicationContext(), AboutActivity.class);
-//        startActivity(intent);
-//    }
 }

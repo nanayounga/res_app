@@ -6,7 +6,7 @@
     <data>
         <variable
             name="variableAbout"
-            type="com.example.nganth.restaurantapp.restaurant.RestaurantActivity"/>
+            type="com.example.nganth.restaurantapp.restaurant.ViewPagerMenuActivity"/>
 
     </data>
 

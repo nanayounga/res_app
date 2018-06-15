@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.nganth.restaurantapp.BaseActivity;
 import com.example.nganth.restaurantapp.R;
@@ -23,15 +24,10 @@ public class AboutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.about, container, false);
 
-        RestaurantActivity mainActivity = (RestaurantActivity) getActivity();
+        ViewPagerMenuActivity mainActivity = (ViewPagerMenuActivity) getActivity();
         binding.setVariableAbout(mainActivity);
 
         return binding.getRoot();
     }
-
-//    public void openReviewActivity(android.view.View view) {
-//        android.content.Intent intent = new android.content.Intent(getActivity().getApplicationContext(), ReviewActivity.class);
-//        startActivity(intent);
-//    }
 
 }

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="variableReview"
-            type="com.example.nganth.restaurantapp.restaurant.RestaurantActivity"/>
+            type="com.example.nganth.restaurantapp.restaurant.ViewPagerMenuActivity"/>
     </data>
 
 <android.support.constraint.ConstraintLayout

@@ -34,7 +34,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:text="Next"
-            android:onClick="@{(view) -> variableResult.showMenu(view)}"
+            android:onClick="@{(view) -> variableResult.showMenuByLink(view)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

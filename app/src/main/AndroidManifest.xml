@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.nganth.restaurantapp">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -25,8 +25,11 @@
         <activity android:name=".user.ChangePasswordActivity" />
         <activity
             android:name=".restaurant.RestaurantActivity"
-            android:label="@string/title_activity_restaurant">
-
+            android:label="@string/title_activity_restaurant" />
+        <activity
+            android:name=".restaurant.ViewPagerMenuActivity"
+            android:label="@string/title_activity_view_pager_menu"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 
