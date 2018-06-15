@@ -17,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.nganth.restaurantapp.Place;
+import com.example.nganth.restaurantapp.PlacesService;
 import com.example.nganth.restaurantapp.R;
 import com.example.nganth.restaurantapp.databinding.WalkthoughtBinding;
 import com.google.android.gms.common.api.ApiException;
@@ -34,6 +36,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.concurrent.Executor;
 
@@ -102,9 +105,9 @@ public class WalkthoughtFragment extends Fragment {
         mRequestingLocationUpdates = true;
 
         mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
+       /* mLocationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
         mLocationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);*/
 
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
         builder.addLocationRequest(mLocationRequest);
@@ -119,6 +122,23 @@ public class WalkthoughtFragment extends Fragment {
         if (mCurrentLocation != null) {
             String location  = "Lat: " + mCurrentLocation.getLatitude() + "Lng: " + mCurrentLocation.getLongitude();
             Toast.makeText(getActivity(), location, Toast.LENGTH_LONG).show();
+
+            Thread thread = new Thread(new Runnable(){
+                @Override
+                public void run() {
+                    try {
+                        //Get restaurant
+                        //ArrayList<Place> places = PlacesService.search("restaurant", mCurrentLocation.getAltitude(), mCurrentLocation.getLongitude(), 1000);
+                        ArrayList<Place> places = PlacesService.search("restaurant", 16.066730, 108.211981, 1000);
+                        Log.d(TAG, "Places length:"+ places.toString());
+                    } catch (Exception e) {
+                        Log.e(TAG, e.getMessage());
+                    }
+                }
+            });
+            thread.start();
+            //ArrayList<Place> places = PlacesService.search("restaurant", 16.066730, 108.211981, 1000);
+            //Log.d(TAG, places.toString());
         }
 
     }
