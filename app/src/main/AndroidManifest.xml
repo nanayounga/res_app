@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -30,8 +30,11 @@
             android:label="@string/title_activity_restaurant" />
         <activity
             android:name=".restaurant.ViewPagerMenuActivity"
-            android:label="@string/title_activity_view_pager_menu">
-        </activity>
+            android:label="@string/title_activity_view_pager_menu"></activity>
+        <activity
+            android:name=".restaurant.ViewPagerWalkthoughtActivity"
+            android:label="@string/title_activity_walkthought"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

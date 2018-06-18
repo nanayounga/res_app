@@ -14,10 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import com.example.nganth.restaurantapp.restaurant.AboutFragment;
-import com.example.nganth.restaurantapp.restaurant.MenuFragment;
-import com.example.nganth.restaurantapp.restaurant.RestaurantActivity;
 import com.example.nganth.restaurantapp.restaurant.ViewPagerMenuActivity;
+import com.example.nganth.restaurantapp.restaurant.ViewPagerWalkthoughtActivity;
 import com.example.nganth.restaurantapp.user.FavoriteActivity;
 import com.example.nganth.restaurantapp.user.ProfileActivity;
 import com.example.nganth.restaurantapp.user.SignInActivity;
@@ -67,8 +65,9 @@ public class BaseActivity extends AppCompatActivity {
             startActivity(intent);
         }else if(id == R.id.action_walkthought){
             //Open walkthought
-            android.content.Intent intent = new android.content.Intent(getApplicationContext(), RestaurantActivity.class);
-            intent.putExtra("flag", "Walkthout");
+//            android.content.Intent intent = new android.content.Intent(getApplicationContext(), RestaurantActivity.class);
+            android.content.Intent intent = new android.content.Intent(getApplicationContext(), ViewPagerWalkthoughtActivity.class);
+//            intent.putExtra("flag", "Walkthout");
             startActivity(intent);
         }else if(id == R.id.action_menu_res){
             //Open restaurant menu
