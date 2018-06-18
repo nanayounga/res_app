@@ -30,8 +30,7 @@
             android:label="@string/title_activity_restaurant" />
         <activity
             android:name=".restaurant.ViewPagerMenuActivity"
-            android:label="@string/title_activity_view_pager_menu"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="@string/title_activity_view_pager_menu">
         </activity>
     </application>
 

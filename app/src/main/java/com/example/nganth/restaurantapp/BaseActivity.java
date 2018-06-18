@@ -73,7 +73,7 @@ public class BaseActivity extends AppCompatActivity {
         }else if(id == R.id.action_menu_res){
             //Open restaurant menu
             android.content.Intent intent = new android.content.Intent(getApplicationContext(), ViewPagerMenuActivity.class);
-            intent.putExtra("flag", "ResMenu");
+            intent.putExtra("pageNumber", 0);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
