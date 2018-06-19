@@ -16,11 +16,11 @@ public class ItemFragmentWalkthought extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         FragmentItemWalkthoughtBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_item_walkthought, container, false);
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            String value = bundle.getString("value");
-            binding.textView.setText(value);
-        }
+//        Bundle bundle = getArguments();
+//        if (bundle != null) {
+//            String value = bundle.getString("value");
+//            binding.textView.setText(value);
+//        }
         return binding.getRoot();
     }
 }

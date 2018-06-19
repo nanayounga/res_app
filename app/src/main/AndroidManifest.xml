@@ -33,8 +33,7 @@
             android:label="@string/title_activity_view_pager_menu"></activity>
         <activity
             android:name=".restaurant.ViewPagerWalkthoughtActivity"
-            android:label="@string/title_activity_walkthought"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label="@string/title_activity_walkthought"></activity>
     </application>
 
 </manifest>
