@@ -50,4 +50,5 @@
     <string name="title_activity_restaurant">RestaurantActivity</string>
     <string name="title_activity_view_pager_res">ViewPagerResActivity</string>
     <string name="title_activity_view_pager_menu">ViewPagerMenuActivity</string>
+    <string name="place_details">%1$s</string>
 </resources>
