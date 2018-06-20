@@ -28,13 +28,13 @@ public class PagerWalkthoughtAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         Fragment fragment = new ItemFragmentWalkthought();
-//        Bundle bundle = new Bundle();
-//        bundle.putString("nameResGet", String.valueOf(position));
-//        fragment.setArguments(bundle);
-
         Bundle bundle = new Bundle();
-        bundle.putSerializable("listRes", restaurants);
+        bundle.putString("nameResGet", String.valueOf(position));
         fragment.setArguments(bundle);
+
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("listRes", restaurants);
+//        fragment.setArguments(bundle);
 
         return fragment;
     }

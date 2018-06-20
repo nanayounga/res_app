@@ -18,30 +18,30 @@ import java.util.ArrayList;
 public class ItemFragmentWalkthought extends Fragment {
 
     private FragmentItemWalkthoughtBinding binding;
-    ArrayList<Restaurant> restaurants = new ArrayList<>();
+//    ArrayList<Restaurant> restaurants = new ArrayList<>();
 
     private PagerWalkthoughtAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         FragmentItemWalkthoughtBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_item_walkthought, container, false);
-//        Bundle bundle = getArguments();
+        Bundle bundle = getArguments();
 
-        restaurants = (ArrayList<Restaurant>)getArguments().getSerializable("listRes");
+//        restaurants = (ArrayList<Restaurant>)getArguments().getSerializable("listRes");
 
-        if (restaurants != null) {
-//            String nameResPar = bundle.getString("nameResGet");
-//            binding.nameResWalkthought.setText(nameResPar);
-
-            Restaurant data = restaurants.get(0);
-            String imgResPar = data.resImage;
-            binding.imgWalkthought.setImageDrawable(Drawable.createFromPath(imgResPar));
-
-            String nameResPar = data.resName;
+        if (bundle != null) {
+            String nameResPar = bundle.getString("nameResGet");
             binding.nameResWalkthought.setText(nameResPar);
 
-            String addressResPar = data.resAddress;
-            binding.addressResWalkthought.setText(addressResPar);
+//            Restaurant data = restaurants.get(0);
+//            String imgResPar = data.resImage;
+//            binding.imgWalkthought.setImageDrawable(Drawable.createFromPath(imgResPar));
+//
+//            String nameResPar = data.resName;
+//            binding.nameResWalkthought.setText(nameResPar);
+//
+//            String addressResPar = data.resAddress;
+//            binding.addressResWalkthought.setText(addressResPar);
         }
 
         return binding.getRoot();
