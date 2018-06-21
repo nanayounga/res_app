@@ -16,6 +16,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCEOvWIiRye57Hwi6nQoTkL7FuXX0--0xs" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,10 +34,14 @@
             android:label="@string/title_activity_restaurant" />
         <activity
             android:name=".restaurant.ViewPagerMenuActivity"
-            android:label="@string/title_activity_view_pager_menu"></activity>
+            android:label="@string/title_activity_view_pager_menu" >
+
+        </activity>
         <activity
             android:name=".restaurant.ViewPagerWalkthoughtActivity"
-            android:label="@string/title_activity_walkthought"></activity>
+            android:label="@string/title_activity_walkthought" >
+
+        </activity>
     </application>
 
 </manifest>

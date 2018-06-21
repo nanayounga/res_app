@@ -5,20 +5,20 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.nganth.restaurantapp.R;
+import com.example.nganth.restaurantapp.Restaurant;
 import com.example.nganth.restaurantapp.databinding.FragmentItemWalkthoughtBinding;
-import com.example.nganth.restaurantapp.user.Restaurant;
 
 import java.util.ArrayList;
 
 public class ItemFragmentWalkthought extends Fragment {
 
     private FragmentItemWalkthoughtBinding binding;
-//    ArrayList<Restaurant> restaurants = new ArrayList<>();
 
     private PagerWalkthoughtAdapter adapter;
 
@@ -27,21 +27,20 @@ public class ItemFragmentWalkthought extends Fragment {
         FragmentItemWalkthoughtBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_item_walkthought, container, false);
         Bundle bundle = getArguments();
 
-//        restaurants = (ArrayList<Restaurant>)getArguments().getSerializable("listRes");
-
         if (bundle != null) {
-            String nameResPar = bundle.getString("nameResGet");
+            Restaurant data = (Restaurant) bundle.getSerializable("Res");
+            String imgResPar = data.resImage;
+            if (TextUtils.isEmpty(imgResPar)) {
+                binding.imgWalkthought.setImageResource(R.drawable.food_menu);
+            } else {
+                binding.imgWalkthought.setImageDrawable(Drawable.createFromPath(imgResPar));
+            }
+
+            String nameResPar = data.resName;
             binding.nameResWalkthought.setText(nameResPar);
 
-//            Restaurant data = restaurants.get(0);
-//            String imgResPar = data.resImage;
-//            binding.imgWalkthought.setImageDrawable(Drawable.createFromPath(imgResPar));
-//
-//            String nameResPar = data.resName;
-//            binding.nameResWalkthought.setText(nameResPar);
-//
-//            String addressResPar = data.resAddress;
-//            binding.addressResWalkthought.setText(addressResPar);
+            String addressResPar = data.resAddress;
+            binding.addressResWalkthought.setText(addressResPar);
         }
 
         return binding.getRoot();

@@ -1,15 +1,14 @@
 package com.example.nganth.restaurantapp.user;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.widget.Toast;
 
 import com.example.nganth.restaurantapp.BaseActivity;
+import com.example.nganth.restaurantapp.Restaurant;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class FavoriteActivity extends BaseActivity {

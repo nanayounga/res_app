@@ -9,10 +9,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.nganth.restaurantapp.R;
+import com.example.nganth.restaurantapp.Restaurant;
 import com.example.nganth.restaurantapp.databinding.ItemFavoriteBinding;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class FavoriteAdapter extends RecyclerView.Adapter {
     public interface Callback {

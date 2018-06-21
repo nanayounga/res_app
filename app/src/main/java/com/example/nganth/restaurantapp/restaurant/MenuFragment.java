@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.example.nganth.restaurantapp.R;
 import com.example.nganth.restaurantapp.databinding.MenuBinding;
-import com.example.nganth.restaurantapp.user.Restaurant;
+import com.example.nganth.restaurantapp.Restaurant;
 
 import java.util.ArrayList;
 
@@ -34,14 +34,15 @@ public class MenuFragment extends Fragment{
         ViewPagerMenuActivity mainActivity = (ViewPagerMenuActivity) getActivity();
         binding.setVariableMenu(mainActivity);
 
-        restaurants.add(new Restaurant("Nha hang 1",null, null));
-        restaurants.add(new Restaurant("Nha hang 2",null, null));
-        restaurants.add(new Restaurant("Nha hang 3",null, null));
-        restaurants.add(new Restaurant("Nha hang 4",null, null));
-        restaurants.add(new Restaurant("Nha hang 5",null, null));
-        restaurants.add(new Restaurant("Nha hang 6",null, null));
-        restaurants.add(new Restaurant("Nha hang 7",null, null));
-
+        if (savedInstanceState == null) {
+            restaurants.add(new Restaurant("Nha hang 1", null, null));
+            restaurants.add(new Restaurant("Nha hang 2", null, null));
+            restaurants.add(new Restaurant("Nha hang 3", null, null));
+            restaurants.add(new Restaurant("Nha hang 4", null, null));
+            restaurants.add(new Restaurant("Nha hang 5", null, null));
+            restaurants.add(new Restaurant("Nha hang 6", null, null));
+            restaurants.add(new Restaurant("Nha hang 7", null, null));
+        }
         // khoi tao Adapter
         MenuAdapter adapter = new MenuAdapter(restaurants);
 

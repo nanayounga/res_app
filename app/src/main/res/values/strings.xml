@@ -53,4 +53,5 @@
     <string name="title_activity_view_pager_menu">ViewPagerMenuActivity</string>
     <string name="place_details">%1$s</string>
     <string name="title_activity_walkthought">WalkthoughtActivity</string>
+    <string name="title_activity_review">ReviewActivity</string>
 </resources>

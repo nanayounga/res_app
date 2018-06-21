@@ -1,7 +1,6 @@
 package com.example.nganth.restaurantapp.restaurant;
 
 import android.databinding.DataBindingUtil;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -11,7 +10,7 @@ import android.widget.Toast;
 
 import com.example.nganth.restaurantapp.R;
 import com.example.nganth.restaurantapp.databinding.ItemMenuBinding;
-import com.example.nganth.restaurantapp.user.Restaurant;
+import com.example.nganth.restaurantapp.Restaurant;
 
 import java.util.ArrayList;
 
