@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.nganth.restaurantapp.Place;
 import com.example.nganth.restaurantapp.R;
 import com.example.nganth.restaurantapp.Restaurant;
 import com.example.nganth.restaurantapp.databinding.FragmentItemWalkthoughtBinding;
@@ -28,18 +29,18 @@ public class ItemFragmentWalkthought extends Fragment {
         Bundle bundle = getArguments();
 
         if (bundle != null) {
-            Restaurant data = (Restaurant) bundle.getSerializable("Res");
-            String imgResPar = data.resImage;
+            Place data = (Place) bundle.getSerializable("Res");
+            String imgResPar = data.getIcon();
             if (TextUtils.isEmpty(imgResPar)) {
                 binding.imgWalkthought.setImageResource(R.drawable.food_menu);
             } else {
                 binding.imgWalkthought.setImageDrawable(Drawable.createFromPath(imgResPar));
             }
 
-            String nameResPar = data.resName;
+            String nameResPar = data.getName();
             binding.nameResWalkthought.setText(nameResPar);
 
-            String addressResPar = data.resAddress;
+            String addressResPar = data.getFormatted_address();
             binding.addressResWalkthought.setText(addressResPar);
         }
 

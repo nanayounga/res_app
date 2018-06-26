@@ -131,8 +131,10 @@ public class PlacesService {
             resultList = new ArrayList<Place>(predsJsonArray.length());
             for (int i = 0; i < predsJsonArray.length(); i++) {
                 Place place = new Place();
+                place.placeId = predsJsonArray.getJSONObject(i).getString("place_id");
                 place.reference = predsJsonArray.getJSONObject(i).getString("reference");
                 place.name = predsJsonArray.getJSONObject(i).getString("name");
+                place.formatted_address = predsJsonArray.getJSONObject(i).getString("vicinity");
                 resultList.add(place);
             }
         } catch (JSONException e) {

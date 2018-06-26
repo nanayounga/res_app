@@ -1,13 +1,22 @@
 package com.example.nganth.restaurantapp;
 
-public class Place {
+import java.io.Serializable;
 
-        Integer placeId;
-        String icon, name, formatted_address, formatted_phone_number, reference;
+public class Place implements Serializable {
 
-        public Place() { }
+        String placeId,icon, name, formatted_address, formatted_phone_number, reference;
 
-        public Integer getPlaceId() {
+        public Place(){};
+        public Place(String placeId, String icon, String name, String address, String phone, String reference) {
+            this.placeId = placeId;
+            this.icon = icon;
+            this.name = name;
+            this.formatted_address = address;
+            this.formatted_phone_number = phone;
+            this.reference = reference;
+        }
+
+        public String getPlaceId() {
             return placeId;
         }
 

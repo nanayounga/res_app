@@ -5,24 +5,30 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.example.nganth.restaurantapp.Place;
 import com.example.nganth.restaurantapp.Restaurant;
 
 import java.util.ArrayList;
 
 public class PagerWalkthoughtAdapter extends FragmentStatePagerAdapter {
 
-    ArrayList<Restaurant> restaurants = new ArrayList<>();
+    //ArrayList<Restaurant> restaurants = new ArrayList<>();
+    ArrayList<Place> restaurants = new ArrayList<>();
 
-    public PagerWalkthoughtAdapter(FragmentManager fm) {
+    public PagerWalkthoughtAdapter(FragmentManager fm, ArrayList<Place> places) {
         super(fm);
 
-        restaurants.add(new Restaurant("Nha hang 1",". New York, NY, USA", null));
-        restaurants.add(new Restaurant("Nha hang 2",". New York, NY, USA", null));
-        restaurants.add(new Restaurant("Nha hang 3",null, null));
-        restaurants.add(new Restaurant("Nha hang 4",null, null));
-        restaurants.add(new Restaurant("Nha hang 5",null, null));
-        restaurants.add(new Restaurant("Nha hang 6",null, null));
-        restaurants.add(new Restaurant("Nha hang 7",null, null));
+        if(places.size() > 0){
+            restaurants = places;
+        }else{
+            restaurants.add(new Place("dfsdf","https://nyoobserver.files.wordpress.com/2017/01/static1-squarespace-3.jpg", "abc", " New York, NY, USA","12344354","dsfsdf"));
+            restaurants.add(new Place("dfsdf","https://nyoobserver.files.wordpress.com/2017/01/static1-squarespace-3.jpg", "abc", " New York, NY, USA","12344354","dsfsdf"));
+            restaurants.add(new Place("dfsdf","https://nyoobserver.files.wordpress.com/2017/01/static1-squarespace-3.jpg", "abc", " New York, NY, USA","12344354","dsfsdf"));
+            restaurants.add(new Place("dfsdf","https://nyoobserver.files.wordpress.com/2017/01/static1-squarespace-3.jpg", "abc", " New York, NY, USA","12344354","dsfsdf"));
+            restaurants.add(new Place("dfsdf","https://nyoobserver.files.wordpress.com/2017/01/static1-squarespace-3.jpg", "abc", " New York, NY, USA","12344354","dsfsdf"));
+            restaurants.add(new Place("dfsdf","https://nyoobserver.files.wordpress.com/2017/01/static1-squarespace-3.jpg", "abc", " New York, NY, USA","12344354","dsfsdf"));
+            restaurants.add(new Place("dfsdf","https://nyoobserver.files.wordpress.com/2017/01/static1-squarespace-3.jpg", "abc", " New York, NY, USA","12344354","dsfsdf"));
+        }
     }
 
     @Override
