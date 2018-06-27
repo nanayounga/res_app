@@ -46,7 +46,7 @@
 
     <string name="open">Open</string>
     <string name="save">Save</string>
-    <string name="skip">Skip</string>
+    <string name="show_map">Show in map</string>
     <string name="loading">Loading…</string>
     <string name="title_activity_restaurant">RestaurantActivity</string>
     <string name="title_activity_view_pager_res">ViewPagerResActivity</string>

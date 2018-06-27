@@ -8,14 +8,21 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
 import com.example.nganth.restaurantapp.BaseActivity;
+import com.example.nganth.restaurantapp.Place;
 import com.example.nganth.restaurantapp.R;
 import com.example.nganth.restaurantapp.databinding.RestaurantBinding;
+
+import java.util.ArrayList;
 
 public class RestaurantActivity extends BaseActivity {
 
     private RestaurantBinding binding;
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
+
+    public ArrayList<Place> places = new ArrayList<>();
+    public Double currentLat;
+    public Double currentLng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +40,14 @@ public class RestaurantActivity extends BaseActivity {
                     case "Walkthout":
                         showWalkthought(null);
                         break;
+                    case "Search":
+                        Bundle bundle = intent.getExtras();
+                        places = (ArrayList<Place>) bundle.getSerializable("EXTRA_PLACES");
+                        currentLat = bundle.getDouble("currentLat");
+                        currentLng = bundle.getDouble("currentLng");
+
+                        showSearch(null);
+                        break;
                 }
             }
         }
@@ -48,6 +63,11 @@ public class RestaurantActivity extends BaseActivity {
     public void showSearch(View view) {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         SearchFragment fragment = new SearchFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("EXTRA_PLACES",places);
+        bundle.putDouble("currentLat", currentLat);
+        bundle.putDouble("currentLng", currentLng);
+        fragment.setArguments(bundle);
         transaction.replace(R.id.fragmentRestaurant, fragment);
         transaction.commit();
     }

@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.example.nganth.restaurantapp.Place;
 import com.example.nganth.restaurantapp.Restaurant;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
@@ -21,13 +22,13 @@ public class PagerWalkthoughtAdapter extends FragmentStatePagerAdapter {
         if(places.size() > 0){
             restaurants = places;
         }else{
-            restaurants.add(new Place("dfsdf","https://nyoobserver.files.wordpress.com/2017/01/static1-squarespace-3.jpg", "abc", " New York, NY, USA","12344354","dsfsdf"));
-            restaurants.add(new Place("dfsdf","https://nyoobserver.files.wordpress.com/2017/01/static1-squarespace-3.jpg", "abc", " New York, NY, USA","12344354","dsfsdf"));
-            restaurants.add(new Place("dfsdf","https://nyoobserver.files.wordpress.com/2017/01/static1-squarespace-3.jpg", "abc", " New York, NY, USA","12344354","dsfsdf"));
-            restaurants.add(new Place("dfsdf","https://nyoobserver.files.wordpress.com/2017/01/static1-squarespace-3.jpg", "abc", " New York, NY, USA","12344354","dsfsdf"));
-            restaurants.add(new Place("dfsdf","https://nyoobserver.files.wordpress.com/2017/01/static1-squarespace-3.jpg", "abc", " New York, NY, USA","12344354","dsfsdf"));
-            restaurants.add(new Place("dfsdf","https://nyoobserver.files.wordpress.com/2017/01/static1-squarespace-3.jpg", "abc", " New York, NY, USA","12344354","dsfsdf"));
-            restaurants.add(new Place("dfsdf","https://nyoobserver.files.wordpress.com/2017/01/static1-squarespace-3.jpg", "abc", " New York, NY, USA","12344354","dsfsdf"));
+            restaurants.add(new Place("dfsdf","https://nyoobserver.files.wordpress.com/2017/01/static1-squarespace-3.jpg", "abc", " New York, NY, USA","12344354","dsfsdf",0.0,0.0));
+            restaurants.add(new Place("dfsdf","https://nyoobserver.files.wordpress.com/2017/01/static1-squarespace-3.jpg", "abc", " New York, NY, USA","12344354","dsfsdf",0.0,0.0));
+            restaurants.add(new Place("dfsdf","https://nyoobserver.files.wordpress.com/2017/01/static1-squarespace-3.jpg", "abc", " New York, NY, USA","12344354","dsfsdf",0.0,0.0));
+            restaurants.add(new Place("dfsdf","https://nyoobserver.files.wordpress.com/2017/01/static1-squarespace-3.jpg", "abc", " New York, NY, USA","12344354","dsfsdf",0.0,0.0));
+            restaurants.add(new Place("dfsdf","https://nyoobserver.files.wordpress.com/2017/01/static1-squarespace-3.jpg", "abc", " New York, NY, USA","12344354","dsfsdf",0.0,0.0));
+            restaurants.add(new Place("dfsdf","https://nyoobserver.files.wordpress.com/2017/01/static1-squarespace-3.jpg", "abc", " New York, NY, USA","12344354","dsfsdf",0.0,0.0));
+            restaurants.add(new Place("dfsdf","https://nyoobserver.files.wordpress.com/2017/01/static1-squarespace-3.jpg", "abc", " New York, NY, USA","12344354","dsfsdf",0.0,0.0));
         }
     }
 
