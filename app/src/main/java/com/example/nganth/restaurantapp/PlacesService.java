@@ -138,11 +138,13 @@ public class PlacesService {
                 place.reference = predsJsonArray.getJSONObject(i).getString("reference");
                 place.name = predsJsonArray.getJSONObject(i).getString("name");
                 place.formatted_address = predsJsonArray.getJSONObject(i).getString("vicinity");
+                place.formatted_phone_number = predsJsonArray.getJSONObject(i).getString("vicinity");
 
                 JSONObject geoJsonObj = new JSONObject(predsJsonArray.getJSONObject(i).getString("geometry"));
                 JSONObject locationJsonObj = new JSONObject(geoJsonObj.getString("location"));
                 place.lat = (Double) locationJsonObj.get("lat");
                 place.lng = (Double) locationJsonObj.get("lng");
+                place.rating = predsJsonArray.getJSONObject(i).getDouble("rating");
                 resultList.add(place);
             }
         } catch (JSONException e) {

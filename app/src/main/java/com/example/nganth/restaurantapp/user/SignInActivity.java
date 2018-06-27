@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nganth.restaurantapp.BaseActivity;
+import com.example.nganth.restaurantapp.MainActivity;
 import com.example.nganth.restaurantapp.R;
 import com.example.nganth.restaurantapp.restaurant.RestaurantActivity;
 import com.example.nganth.restaurantapp.restaurant.WalkthoughtFragment;
@@ -87,9 +88,7 @@ public class SignInActivity extends BaseActivity implements
                             FirebaseUser user = mAuth.getCurrentUser();
                             //
                             if (user.isEmailVerified()) {
-                                //Open profile user
-//                                    android.content.Intent intent = new android.content.Intent(getApplicationContext(), ProfileActivity.class);
-                                android.content.Intent intent = new android.content.Intent(getApplicationContext(), RestaurantActivity.class);
+                                android.content.Intent intent = new android.content.Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intent);
                             } else {
                                 updateUI(user);

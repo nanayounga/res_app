@@ -2,16 +2,25 @@ package com.example.nganth.restaurantapp;
 
 import java.io.Serializable;
 
-/**
- * Created by HV on 5/30/2018.
- */
-
 public class Restaurant implements Serializable {
-    public String resName, resAddress, resImage;
+        public String resName,resImage, resAddress;
 
-    public Restaurant(String _resName, String _resAddress, String _resImage){
-        resName = _resName;
-        resAddress = _resAddress;
-        resImage = _resImage;
-    }
+        public Restaurant(){};
+        public Restaurant(String resName, String resImage, String resAddress) {
+            this.resName = resName;
+            this.resImage = resImage;
+            this.resAddress = resAddress;
+        }
+
+        public String getResName() {
+            return resName;
+        }
+
+        public String getResImage() {
+            return resImage;
+        }
+
+        public String getResAddress() {
+            return resAddress;
+        }
 }
