@@ -53,9 +53,6 @@ public class ViewPagerWalkthoughtActivity extends BaseActivity {
 
     public ArrayList<Place> places = new ArrayList<>();
 
-    public Double currentLat;
-    public Double currentLng;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,8 +60,6 @@ public class ViewPagerWalkthoughtActivity extends BaseActivity {
 
         Bundle bundle = getIntent().getExtras();
         places = (ArrayList<Place>) bundle.getSerializable("EXTRA_PLACES");
-        currentLat = bundle.getDouble("currentLat");
-        currentLng = bundle.getDouble("currentLng");
 
         binding.viewPagerWalkthought.setAdapter(adapter = new PagerWalkthoughtAdapter(getSupportFragmentManager(), places));
         binding.viewPagerWalkthought.setClipToPadding(false);
@@ -100,16 +95,8 @@ public class ViewPagerWalkthoughtActivity extends BaseActivity {
 
     }
 
-    public void showMap(View view) {
-        android.content.Intent intent = new android.content.Intent(getApplicationContext(), com.example.nganth.restaurantapp.restaurant.RestaurantActivity.class);
-        intent.putExtra("flag", "Search");
-
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("EXTRA_PLACES",places);
-        intent.putExtras(bundle);
-
-        intent.putExtra("currentLat", currentLat);
-        intent.putExtra("currentLng", currentLng);
+    public void showMenu(View view) {
+        android.content.Intent intent = new android.content.Intent(getApplicationContext(), com.example.nganth.restaurantapp.restaurant.ViewPagerMenuActivity.class);
         startActivity(intent);
     }
 

@@ -31,7 +31,6 @@ public class ViewPagerMenuActivity extends BaseActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_view_pager_menu);
 
-
         Intent intent = getIntent();
         if (intent != null) {
             page = intent.getIntExtra("pageNumber", 0);

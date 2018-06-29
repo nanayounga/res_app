@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.example.nganth.restaurantapp.Place;
 import com.example.nganth.restaurantapp.R;
+import com.example.nganth.restaurantapp.Restaurant;
 import com.example.nganth.restaurantapp.databinding.FragmentItemWalkthoughtBinding;
 
 import java.util.ArrayList;
@@ -41,12 +42,6 @@ public class ItemFragmentWalkthought extends Fragment {
 
             String addressResPar = data.getFormatted_address();
             binding.addressResWalkthought.setText(addressResPar);
-
-            Double infoResPar = data.getRating();
-            binding.desResWalkthought.setText("Rating: "+ infoResPar);
-
-            String phoneResPar = data.getFormatted_phone_number();
-            binding.phoneResWalkthought.setText("Phone: "+ phoneResPar);
         }
 
         return binding.getRoot();

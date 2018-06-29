@@ -31,7 +31,9 @@
         <activity android:name=".user.ChangePasswordActivity" />
         <activity
             android:name=".restaurant.RestaurantActivity"
-            android:label="@string/title_activity_restaurant" />
+            android:label="@string/title_activity_restaurant" >
+
+        </activity>
         <activity
             android:name=".restaurant.ViewPagerMenuActivity"
             android:label="@string/title_activity_view_pager_menu" >

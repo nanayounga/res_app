@@ -1,17 +1,14 @@
 package com.example.nganth.restaurantapp;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import java.io.Serializable;
 
 public class Place implements Serializable {
 
-        Double lat, lng;
-        Double rating;
+        Double lat,lng;
         String placeId,icon, name, formatted_address, formatted_phone_number, reference;
 
         public Place(){};
-        public Place(String placeId, String icon, String name, String address, String phone, String reference, Double lat, Double lng, Double rating) {
+        public Place(String placeId, String icon, String name, String address, String phone, String reference, Double lat, Double lng) {
             this.placeId = placeId;
             this.icon = icon;
             this.name = name;
@@ -19,8 +16,7 @@ public class Place implements Serializable {
             this.formatted_phone_number = phone;
             this.reference = reference;
             this.lat = lat;
-            this.lng = lng;
-            this.rating = rating;
+            this.lng  = lng;
         }
 
         public String getPlaceId() {
@@ -54,8 +50,4 @@ public class Place implements Serializable {
         public Double getLng() {
             return lng;
         }
-
-    public Double getRating() {
-        return rating;
-    }
 }

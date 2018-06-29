@@ -74,11 +74,13 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
 
     private static final float DEFAULT_ZOOM = 20.0f;
 
+
     public ArrayList<com.example.nganth.restaurantapp.Place> restaurants = new ArrayList<>();
 
     public Double currentLat;
     public Double currentLng;
     ArrayList<Marker> restaurantMakers;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,10 +109,6 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
         if(mapFragment != null) {
             mapFragment.getMapAsync(this);
         }
-
-        restaurants = (ArrayList<com.example.nganth.restaurantapp.Place>) getArguments().getSerializable("EXTRA_PLACES");
-        currentLat = getArguments().getDouble("currentLat");
-        currentLng = getArguments().getDouble("currentLng");
 
         return view;
     }
@@ -183,6 +181,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.restaurant)));
             restaurantMakers.add(maker);
         }
+
     }
     private void geoLocate() {
         String searchString = mSearchText.getText().toString();

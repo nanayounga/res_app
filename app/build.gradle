@@ -21,7 +21,7 @@ android {
     }
     sourceSets {
         main {
-            res.srcDirs = ['src/main/res', 'src/main/res/user/layout/sign_in', 'src/main/res/user/layout/sign_up', 'src/main/res/search', 'src/main/res/search/layout', 'src/main/res/user', 'src/main/res/user/layout', 'src/main/res/restaurant', 'src/main/res/restaurant/layout', 'src/main/res/user/drawable', 'src/main/res/restaurant/drawable']
+            res.srcDirs = ['src/main/res', 'src/main/res/user/layout/sign_in', 'src/main/res/user/layout/sign_up', 'src/main/res/search', 'src/main/search/layout', 'src/main/res/user', 'src/main/user/layout', 'src/main/res/restaurant', 'src/main/restaurant/layout', 'src/main/user/drawable', 'src/main/restaurant/drawable']
         }
     }
 }
@@ -38,8 +38,7 @@ dependencies {
     implementation 'com.google.maps.android:android-maps-utils:0.5+'
     implementation 'com.google.firebase:firebase-core:16.0.0'
     implementation 'com.google.firebase:firebase-auth:16.0.1'
-
-
+    implementation 'com.google.firebase:firebase-database:16.0.1'
 }
 
 
