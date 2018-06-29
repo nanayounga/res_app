@@ -70,11 +70,6 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
 
     private static final float DEFAULT_ZOOM = 15.0f;
 
-    public ArrayList<com.example.nganth.restaurantapp.Place> restaurants = new ArrayList<>();
-
-    public Double currentLat;
-    public Double currentLng;
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,10 +98,6 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
         if(mapFragment != null) {
             mapFragment.getMapAsync(this);
         }
-
-        restaurants = (ArrayList<com.example.nganth.restaurantapp.Place>) getArguments().getSerializable("EXTRA_PLACES");
-        currentLat = getArguments().getDouble("currentLat");
-        currentLng = getArguments().getDouble("currentLng");
 
         return view;
     }
@@ -154,18 +145,9 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        //LatLng sydney = new LatLng(16.068009, 108.213397);
-        moveCamera(new LatLng(currentLat, currentLng), DEFAULT_ZOOM, "Your location");
+        LatLng sydney = new LatLng(16.068009, 108.213397);
+        moveCamera(sydney, DEFAULT_ZOOM, "Da Nang City");
 
-        //add marker restaurants
-        for (int i = 0; i < restaurants.size(); i++) {
-            Log.d("restaurant",restaurants.get(i).toString());
-            mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(restaurants.get(i).getLat(),restaurants.get(i).getLng()))
-                    .title(restaurants.get(i).getName())
-                    .snippet(restaurants.get(i).getFormatted_address())
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.restaurant)));
-        }
         initSearch();
     }
 

@@ -15,8 +15,6 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import com.example.nganth.restaurantapp.Place;
-import com.google.android.gms.maps.model.LatLng;
-
 /**
  * @author saxman
  */
@@ -104,7 +102,6 @@ public class PlacesService {
             sb.append("&radius=" + String.valueOf(radius));
 
             URL url = new URL(sb.toString());
-            Log.d("Url search", sb.toString());
             conn = (HttpURLConnection) url.openConnection();
             InputStreamReader in = new InputStreamReader(conn.getInputStream());
 
@@ -138,13 +135,6 @@ public class PlacesService {
                 place.reference = predsJsonArray.getJSONObject(i).getString("reference");
                 place.name = predsJsonArray.getJSONObject(i).getString("name");
                 place.formatted_address = predsJsonArray.getJSONObject(i).getString("vicinity");
-                place.formatted_phone_number = predsJsonArray.getJSONObject(i).getString("vicinity");
-
-                JSONObject geoJsonObj = new JSONObject(predsJsonArray.getJSONObject(i).getString("geometry"));
-                JSONObject locationJsonObj = new JSONObject(geoJsonObj.getString("location"));
-                place.lat = (Double) locationJsonObj.get("lat");
-                place.lng = (Double) locationJsonObj.get("lng");
-                place.rating = predsJsonArray.getJSONObject(i).getDouble("rating");
                 resultList.add(place);
             }
         } catch (JSONException e) {

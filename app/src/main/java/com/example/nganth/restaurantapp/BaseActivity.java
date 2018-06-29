@@ -66,7 +66,7 @@ public class BaseActivity extends AppCompatActivity {
         }else if(id == R.id.action_walkthought){
             //Open walkthought
 //            android.content.Intent intent = new android.content.Intent(getApplicationContext(), RestaurantActivity.class);
-            android.content.Intent intent = new android.content.Intent(getApplicationContext(), MainActivity.class);
+            android.content.Intent intent = new android.content.Intent(getApplicationContext(), ViewPagerWalkthoughtActivity.class);
 //            intent.putExtra("flag", "Walkthout");
             startActivity(intent);
         }else if(id == R.id.action_menu_res){

@@ -130,6 +130,8 @@ public class MainActivity extends AppCompatActivity {
      * and toggling the buttons
      */
     private void updateLocationUI() {
+        String location  = "Lat: " + mCurrentLocation.getLatitude() + "Lng: " + mCurrentLocation.getLongitude();
+        Toast.makeText(getApplication(), location, Toast.LENGTH_LONG).show();
         if(currentLat == null || currentLng == null ||  currentLat != mCurrentLocation.getLatitude() || currentLng != mCurrentLocation.getLongitude()) {
             currentLat = mCurrentLocation.getLatitude();
             currentLng = mCurrentLocation.getLongitude();
@@ -138,10 +140,11 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     try {
+
                         //Get restaurant
                        // 16.062708, 108.179480
                         places = PlacesService.search("restaurant", mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude(), 1000);
-
+                        Log.d("debug", "Lat,long"+ mCurrentLocation.getLatitude() +"***"+ mCurrentLocation.getLongitude()+"place size"+ places.size());
                         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
                         if( user != null && user.isEmailVerified() && places != null){
@@ -149,8 +152,6 @@ public class MainActivity extends AppCompatActivity {
                             Bundle bundle=new Bundle();
                             bundle.putSerializable("EXTRA_PLACES",places);
                             intent.putExtras(bundle);
-                            intent.putExtra("currentLat",mCurrentLocation.getLatitude());
-                            intent.putExtra("currentLng",mCurrentLocation.getLongitude());
                             startActivity(intent);
                         }else{
                             android.content.Intent intent = new android.content.Intent(getApplicationContext(), com.example.nganth.restaurantapp.user.SignInActivity.class);
