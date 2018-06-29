@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nganth.restaurantapp.PlacesService;
 import com.example.nganth.restaurantapp.R;
 import com.example.nganth.restaurantapp.databinding.SearchBinding;
 import com.google.android.gms.location.places.AutocompletePrediction;
@@ -41,10 +42,13 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.RuntimeRemoteException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -68,13 +72,13 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
             new LatLng(-40, -168), new LatLng(71, 136)
     );
 
-    private static final float DEFAULT_ZOOM = 15.0f;
+    private static final float DEFAULT_ZOOM = 20.0f;
 
     public ArrayList<com.example.nganth.restaurantapp.Place> restaurants = new ArrayList<>();
 
     public Double currentLat;
     public Double currentLng;
-
+    ArrayList<Marker> restaurantMakers;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,19 +161,29 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
         //LatLng sydney = new LatLng(16.068009, 108.213397);
         moveCamera(new LatLng(currentLat, currentLng), DEFAULT_ZOOM, "Your location");
 
+        addRestaurantMarker();
+
+        initSearch();
+    }
+
+    private void addRestaurantMarker(){
+        if(restaurantMakers != null){
+            for (int i = 0; i < restaurantMakers.size(); i++) {
+                restaurantMakers.get(i).remove();
+                restaurantMakers.remove(i);
+            }
+        }
+        restaurantMakers = new ArrayList<>();
         //add marker restaurants
         for (int i = 0; i < restaurants.size(); i++) {
-            Log.d("restaurant",restaurants.get(i).toString());
-            mMap.addMarker(new MarkerOptions()
+            Marker maker = mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(restaurants.get(i).getLat(),restaurants.get(i).getLng()))
                     .title(restaurants.get(i).getName())
                     .snippet(restaurants.get(i).getFormatted_address())
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.restaurant)));
+            restaurantMakers.add(maker);
         }
-        initSearch();
     }
-
-
     private void geoLocate() {
         String searchString = mSearchText.getText().toString();
         Geocoder geocoder = new Geocoder(super.getActivity());
@@ -196,10 +210,10 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, DEFAULT_ZOOM));
 
         // Zoom in, animating the camera.
-        mMap.animateCamera(CameraUpdateFactory.zoomIn());
+        //mMap.animateCamera(CameraUpdateFactory.zoomIn());
 
         // Zoom out to zoom level 10, animating with a duration of 2 seconds.
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
+        //mMap.animateCamera(CameraUpdateFactory.zoomTo(10), 2000, null);
 
         // Construct a CameraPosition focusing on Mountain View and animate the camera to that position.
         CameraPosition cameraPosition = new CameraPosition.Builder()
@@ -208,7 +222,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
                 .bearing(90)                // Sets the orientation of the camera to east
                 .tilt(30)                   // Sets the tilt of the camera to 30 degrees
                 .build();                   // Creates a CameraPosition from the builder
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+       // mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
         hideSoftKeyboard();
     }
@@ -282,17 +296,23 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
                 //        place.getWebsiteUri()));
                 //geoLocate();
                 moveCamera(new LatLng(place.getLatLng().latitude, place.getLatLng().longitude),DEFAULT_ZOOM, place.getName().toString());
-                // Display the third party attributions if set.
-                /*final CharSequence thirdPartyAttribution = places.getAttributions();
-                if (thirdPartyAttribution == null) {
-                    mPlaceDetailsAttribution.setVisibility(View.GONE);
-                } else {
-                    mPlaceDetailsAttribution.setVisibility(View.VISIBLE);
-                    mPlaceDetailsAttribution.setText(
-                            Html.fromHtml(thirdPartyAttribution.toString()));
-                }*/
 
-                Log.i(TAG, "Place details received: " + place.getName());
+                Thread thread = new Thread(new Runnable(){
+                    @Override
+                    public void run() {
+                        try {
+                            //Get restaurant
+                            // 16.062708, 108.179480
+                            restaurants.clear();
+                            restaurants = PlacesService.search("restaurant", place.getLatLng().latitude, place.getLatLng().longitude, 1000);
+                            addRestaurantMarker();
+
+                        } catch (Exception e) {
+                            Log.e(TAG, e.getMessage());
+                        }
+                    }
+                });
+                thread.start();
 
                 places.release();
             } catch (RuntimeRemoteException e) {
