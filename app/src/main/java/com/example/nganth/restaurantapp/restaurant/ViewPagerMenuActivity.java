@@ -20,6 +20,8 @@ import com.example.nganth.restaurantapp.BaseActivity;
 import com.example.nganth.restaurantapp.R;
 import com.example.nganth.restaurantapp.databinding.ActivityViewPagerMenuBinding;
 
+//https://developers.google.com/places/web-service/details
+
 public class ViewPagerMenuActivity extends BaseActivity {
     private ActivityViewPagerMenuBinding binding;
     private FragmentManager fragmentManager;
