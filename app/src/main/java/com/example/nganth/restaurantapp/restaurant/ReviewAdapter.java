@@ -6,36 +6,39 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nganth.restaurantapp.Comments;
 import com.example.nganth.restaurantapp.R;
 import com.example.nganth.restaurantapp.databinding.ItemReviewBinding;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class ReviewAdapter extends RecyclerView.Adapter {
     private ArrayList<Comments> comments;
 
-    ItemReviewBinding binding;
 
     public ReviewAdapter(ArrayList<Comments> comments) {
         this.comments = comments;
     }
 
     private class MyViewHolder extends RecyclerView.ViewHolder {
+        private ItemReviewBinding binding;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
+            binding = DataBindingUtil.findBinding(itemView);
+            binding.txtReadMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // vị trí vừa click
                     int position = getAdapterPosition();
-//                    Toast.makeText(view.getContext(), String.valueOf(position), Toast.LENGTH_LONG).show();                    ;
                     binding.txtComment.setText(comments.get(position).getComment());
+                    binding.txtReadMore.setVisibility(View.INVISIBLE);
                 }
             });
         }
@@ -60,17 +63,17 @@ public class ReviewAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         String str_comment;
 
-        binding = DataBindingUtil.findBinding(holder.itemView);
+        ItemReviewBinding binding = DataBindingUtil.findBinding(holder.itemView);
 
         Comments data = comments.get(position);
 
-        binding.txtTime.setText(data.getTime());
-        binding.txtDate.setText(data.getDate());
-        binding.txtEmail.setText(data.getMail());
+        String date_format = convert_long_datetime(data.getComment_id());
+
+        binding.txtDate.setText(date_format);
         binding.txtEmail.setText("- " + data.getMail());
 
-        if (data.getComment().length() > 120) {
-            str_comment = truncate(data.getComment(), 120);
+        if (data.getComment().length() > 175) {
+            str_comment = truncate(data.getComment(), 175);
             binding.txtReadMore.setVisibility(View.VISIBLE);
         } else {
             str_comment = data.getComment();
@@ -79,6 +82,17 @@ public class ReviewAdapter extends RecyclerView.Adapter {
 
         binding.txtComment.setText(str_comment);
     }
+
+    public static String convert_long_datetime(String id) {
+        long unixdate = Long.parseLong(id);
+        DateFormat formatter = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(unixdate * 1000);
+        String date_format = formatter.format(calendar.getTime());
+
+        return date_format;
+    }
+
 
     public static String truncate(String str, int len) {
         if (str.length() > len) {

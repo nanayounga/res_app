@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.nganth.restaurantapp.Comments;
 import com.example.nganth.restaurantapp.R;
 import com.example.nganth.restaurantapp.databinding.ReviewBinding;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +27,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +38,10 @@ public class ReviewFragment extends Fragment {
     private ReviewBinding binding;
     ArrayList<Comments> comments = new ArrayList<>();
     ReviewAdapter adapter;
+
+    // [START declare_auth]
+    private FirebaseAuth mAuth;
+    // [END declare_auth]
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference resRef = database.getReference("res_comments");
@@ -49,7 +56,7 @@ public class ReviewFragment extends Fragment {
 
         //-- begin get data from firebase
         // Read from the database
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.orderByChild(myRef.getKey()).limitToLast(10).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
@@ -58,9 +65,20 @@ public class ReviewFragment extends Fragment {
                 comments.clear();
                 for (DataSnapshot i: dataSnapshot.getChildren()) {
                     Comments value = i.getValue(Comments.class);
-//                    Log.d("restaurantapp", "Value is: " + value.comment);
+                    value.setComment_id(i.getKey());
+
                     comments.add(value);
                 }
+
+                Collections.sort(comments, new Comparator<Comments>() {
+                    @Override
+                    public int compare(Comments comments, Comments t1) {
+                        if (t1.getComment_id() == null) return 0;
+                        if (comments.getComment_id() == null) return 1;
+                        return t1.getComment_id().compareTo(comments.getComment_id());
+                    }
+                });
+
                 adapter.notifyDataSetChanged();
             }
 
@@ -92,13 +110,15 @@ public class ReviewFragment extends Fragment {
             @Override
             public void onClick(View view) {
             // Save data in to database
-            String id = UUID.randomUUID().toString();
-            DatabaseReference commentRef = myRef.child(id);
+            Long id = date_time_now();
+            DatabaseReference commentRef = myRef.child(Long.toString(id));
+
+            // [START initialize_auth]
+            mAuth = FirebaseAuth.getInstance();
+            // [END initialize_auth]
 
             commentRef.child("comment").setValue(binding.txtInputComment.getText().toString());
-            commentRef.child("date").setValue(date_time_now("yyyy-MM-dd"));
-            commentRef.child("mail").setValue("abc@gmail.com");
-            commentRef.child("time").setValue(date_time_now("HH:mm"));
+            commentRef.child("mail").setValue(mAuth.getCurrentUser().getEmail());
 
             binding.txtInputComment.setText("");
             }
@@ -107,12 +127,11 @@ public class ReviewFragment extends Fragment {
         return binding.getRoot();
     }
 
-    public static String date_time_now(String date_time) {
-        Calendar c = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat(date_time);
-        String strDate = sdf.format(c.getTime());
+    public static Long date_time_now() {
+        Calendar calendar = Calendar.getInstance();
+        Long id = calendar.getTime().getTime() / 1000;
 
-        return strDate;
+        return id;
     }
 }
 

@@ -50,6 +50,7 @@
     <string name="read_more">Read more</string>
     <string name="input_comment">Input comment</string>
     <string name="show_map">Show in map</string>
+    <string name="skip">Skip</string>
     <string name="loading">Loading…</string>
     <string name="title_activity_restaurant">RestaurantActivity</string>
     <string name="title_activity_view_pager_res">ViewPagerResActivity</string>
