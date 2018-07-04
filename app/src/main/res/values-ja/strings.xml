@@ -42,7 +42,8 @@
     <string name="send">送信</string>
     <string name="read_more">続きを読む</string>
     <string name="input_comment">コメントを入力</string>
-    <string name="show_map">Show in map</string>
+    <string name="show_map">地図に表示</string>
+    <string name="more_information">地図を表示</string>
     <string name="skip">スキップ</string>
     <string name="loading">読み込み中…</string>
     <string name="title_activity_restaurant">レストランアクティビティ</string>

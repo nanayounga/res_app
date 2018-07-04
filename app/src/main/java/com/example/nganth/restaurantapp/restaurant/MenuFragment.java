@@ -16,10 +16,6 @@ import com.example.nganth.restaurantapp.Restaurant;
 
 import java.util.ArrayList;
 
-/**
- * Created by HV on 6/10/2018.
- */
-
 public class MenuFragment extends Fragment{
 
     private MenuBinding binding;

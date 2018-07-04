@@ -21,6 +21,11 @@ import com.example.nganth.restaurantapp.R;
 import com.example.nganth.restaurantapp.databinding.ActivityViewPagerMenuBinding;
 
 //https://developers.google.com/places/web-service/details
+//-- get restaurant detail
+//https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJ15256JXBiYgRJe9BObOLjtM&fields=photo,name,rating,formatted_phone_number,formatted_address,url,website,place_id&key=AIzaSyCEOvWIiRye57Hwi6nQoTkL7FuXX0--0xs
+//-- get restaurant's photo
+//https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CmRaAAAAX-LywgyVrefPrIbLJOb7okwPLPkNCIr6WojhpWlBf72oPxQ8zZp8FEa58CdlUsw4v2rP15yHclWr1cu7qwqUC7QIFwxQivvoX6i4xdGFe3XU0sJ6ZVWxUee0xchf2FcyEhDCrBfRpbidfULwLhIsZj01GhSs_onrfczoUCE2qNI1Z6xOR5SWGw&key=AIzaSyCEOvWIiRye57Hwi6nQoTkL7FuXX0--0xs
+
 
 public class ViewPagerMenuActivity extends BaseActivity {
     private ActivityViewPagerMenuBinding binding;

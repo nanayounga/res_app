@@ -13,9 +13,7 @@ import com.example.nganth.restaurantapp.BaseActivity;
 import com.example.nganth.restaurantapp.R;
 import com.example.nganth.restaurantapp.databinding.AboutBinding;
 
-/**
- * Created by HV on 6/10/2018.
- */
+//https://www.technobyte.org/play-video-file-android-studio-using-videoview-tutorial/
 
 public class AboutFragment extends Fragment {
     private AboutBinding binding;
