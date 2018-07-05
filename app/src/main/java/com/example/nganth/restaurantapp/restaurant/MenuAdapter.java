@@ -1,25 +1,36 @@
 package com.example.nganth.restaurantapp.restaurant;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.nganth.restaurantapp.Foods;
 import com.example.nganth.restaurantapp.R;
 import com.example.nganth.restaurantapp.databinding.ItemMenuBinding;
 import com.example.nganth.restaurantapp.Restaurant;
+import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class MenuAdapter extends RecyclerView.Adapter {
-    private ArrayList<Restaurant> restaurants;
+    private ArrayList<Foods> foods;
 
-    public MenuAdapter(ArrayList<Restaurant> restaurants) {
-        this.restaurants = restaurants;
-    }
+    public MenuAdapter(ArrayList<Foods> foods) {
+    this.foods = foods;
+}
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup recyclerView, int viewType) {
@@ -55,17 +66,20 @@ public class MenuAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ItemMenuBinding binding = DataBindingUtil.findBinding(holder.itemView);
 
-        Restaurant data = restaurants.get(position);
+        Foods data = foods.get(position);
 
-        binding.lblResNameMenu.setText(data.resName);
+        binding.lblResNameMenu.setText(data.getName());
 
-        if (TextUtils.isEmpty(data.resImage)) {
+        if (TextUtils.isEmpty(data.getImage())) {
             binding.imgFood.setImageResource(R.drawable.food_menu);
+        } else {
+            Context context = holder.itemView.getContext();
+            Picasso.with(context).load(data.getImage()).placeholder(R.mipmap.ic_launcher).into(binding.imgFood);
         }
     }
 
     @Override
     public int getItemCount() {
-        return restaurants.size();
+        return foods.size();
     }
 }

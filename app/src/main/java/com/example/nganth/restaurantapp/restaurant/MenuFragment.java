@@ -6,21 +6,34 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.nganth.restaurantapp.Foods;
 import com.example.nganth.restaurantapp.R;
 import com.example.nganth.restaurantapp.databinding.MenuBinding;
 import com.example.nganth.restaurantapp.Restaurant;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class MenuFragment extends Fragment{
 
     private MenuBinding binding;
-    ArrayList<Restaurant> restaurants = new ArrayList<>();
+    ArrayList<Foods> foods = new ArrayList<>();
     private MenuAdapter adapter;
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference resRef = database.getReference("res_foods");
+    DatabaseReference myRef = resRef.child("restaurant_1");
 
     @Nullable
     @Override
@@ -31,16 +44,45 @@ public class MenuFragment extends Fragment{
         binding.setVariableMenu(mainActivity);
 
         if (savedInstanceState == null) {
-            restaurants.add(new Restaurant("Nha hang 1", null, null));
-            restaurants.add(new Restaurant("Nha hang 2", null, null));
-            restaurants.add(new Restaurant("Nha hang 3", null, null));
-            restaurants.add(new Restaurant("Nha hang 4", null, null));
-            restaurants.add(new Restaurant("Nha hang 5", null, null));
-            restaurants.add(new Restaurant("Nha hang 6", null, null));
-            restaurants.add(new Restaurant("Nha hang 7", null, null));
+            //-- begin get data from firebase
+            // Read from the database
+            myRef.orderByChild("name").limitToLast(10).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // This method is called once with the initial value and again
+                    // whenever data at this location is updated.
+
+                    foods.clear();
+                    for (DataSnapshot i : dataSnapshot.getChildren()) {
+                        Foods value = i.getValue(Foods.class);
+                        value.setFoodId(i.getKey());
+
+                        foods.add(value);
+                    }
+
+                    Collections.sort(foods, new Comparator<Foods>() {
+                        @Override
+                        public int compare(Foods foods, Foods t1) {
+                            if (t1.getName() == null) return 0;
+                            if (foods.getName() == null) return 1;
+                            return t1.getName().compareTo(foods.getName());
+                        }
+                    });
+
+                    adapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    // Failed to read value
+                    Log.w("restaurantapp", "Failed to read value.", error.toException());
+                }
+            });
+            //-- end get data from firebase
         }
+
         // khoi tao Adapter
-        MenuAdapter adapter = new MenuAdapter(restaurants);
+        adapter = new MenuAdapter(foods);
 
         // cung cap Adapter cho RecyclerView
         binding.lstResGrid.setAdapter(adapter);
