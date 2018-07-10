@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -17,13 +18,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCEOvWIiRye57Hwi6nQoTkL7FuXX0--0xs" />
 
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".MainActivity"></activity>
         <activity android:name=".user.SignInActivity" />
         <activity android:name=".user.SignUpActivity" />
         <activity android:name=".user.FavoriteActivity" />
@@ -31,19 +26,24 @@
         <activity android:name=".user.ChangePasswordActivity" />
         <activity
             android:name=".restaurant.RestaurantActivity"
-            android:label="@string/title_activity_restaurant" >
-
-        </activity>
+            android:label="@string/title_activity_restaurant"></activity>
         <activity
             android:name=".restaurant.ViewPagerMenuActivity"
-            android:label="@string/title_activity_view_pager_menu" >
+            android:label="@string/title_activity_view_pager_menu">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".restaurant.ViewPagerWalkthoughtActivity"
-            android:label="@string/title_activity_walkthought" >
+            android:label="@string/title_activity_walkthought"></activity>
 
-        </activity>
+        <service
+            android:name=".VideoService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

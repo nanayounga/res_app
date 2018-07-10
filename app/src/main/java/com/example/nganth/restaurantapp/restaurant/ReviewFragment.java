@@ -70,6 +70,7 @@ public class ReviewFragment extends Fragment {
                     comments.add(value);
                 }
 
+                //-- order id desc
                 Collections.sort(comments, new Comparator<Comments>() {
                     @Override
                     public int compare(Comments comments, Comments t1) {

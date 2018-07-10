@@ -60,17 +60,20 @@ public class MenuFragment extends Fragment{
                         foods.add(value);
                     }
 
+                    //-- order name asc
                     Collections.sort(foods, new Comparator<Foods>() {
                         @Override
                         public int compare(Foods foods, Foods t1) {
                             if (t1.getName() == null) return 0;
                             if (foods.getName() == null) return 1;
-                            return t1.getName().compareTo(foods.getName());
+                            return foods.getName().compareTo(t1.getName());
                         }
                     });
 
                     adapter.notifyDataSetChanged();
                 }
+
+
 
                 @Override
                 public void onCancelled(DatabaseError error) {
@@ -80,6 +83,7 @@ public class MenuFragment extends Fragment{
             });
             //-- end get data from firebase
         }
+
 
         // khoi tao Adapter
         adapter = new MenuAdapter(foods);

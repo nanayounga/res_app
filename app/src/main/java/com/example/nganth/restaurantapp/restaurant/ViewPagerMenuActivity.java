@@ -1,8 +1,10 @@
 package com.example.nganth.restaurantapp.restaurant;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,6 +19,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.nganth.restaurantapp.BaseActivity;
+//import com.example.nganth.restaurantapp.Manifest;
 import com.example.nganth.restaurantapp.R;
 import com.example.nganth.restaurantapp.databinding.ActivityViewPagerMenuBinding;
 
@@ -98,7 +101,6 @@ public class ViewPagerMenuActivity extends BaseActivity {
             }
             tab.setCustomView(textView);
         }
-
 
         binding.viewPagerMenu.setCurrentItem(page);
     }
