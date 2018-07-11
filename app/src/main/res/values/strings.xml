@@ -39,6 +39,7 @@
     <string name="confirm_password_new">Confirm New Password</string>
     <!-- Favorite -->
     <string name="title_favorite">My Favorites</string>
+    <string name="add_favorite">Add Favorites</string>
     <!-- Menu -->
     <string name="title_menu">Menu</string>
     <string name="title_about">About</string>

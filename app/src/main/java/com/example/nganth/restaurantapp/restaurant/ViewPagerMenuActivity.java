@@ -14,9 +14,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.nganth.restaurantapp.BaseActivity;
 //import com.example.nganth.restaurantapp.Manifest;
@@ -121,6 +123,11 @@ public class ViewPagerMenuActivity extends BaseActivity {
     }
 
     public void openFavoriteActivity(View view) {
+        android.content.Intent intent = new android.content.Intent(getApplicationContext(), com.example.nganth.restaurantapp.user.FavoriteActivity.class);
+        startActivity(intent);
+    }
+
+    public void addFavorites(View view) {
         android.content.Intent intent = new android.content.Intent(getApplicationContext(), com.example.nganth.restaurantapp.user.FavoriteActivity.class);
         startActivity(intent);
     }

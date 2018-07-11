@@ -18,10 +18,14 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCEOvWIiRye57Hwi6nQoTkL7FuXX0--0xs" />
 
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity">
+
+        </activity>
         <activity android:name=".user.SignInActivity" />
         <activity android:name=".user.SignUpActivity" />
-        <activity android:name=".user.FavoriteActivity" />
+        <activity android:name=".user.FavoriteActivity" >
+
+        </activity>
         <activity android:name=".user.ProfileActivity" />
         <activity android:name=".user.ChangePasswordActivity" />
         <activity

@@ -1,6 +1,7 @@
 package com.example.nganth.restaurantapp.restaurant;
 
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -99,4 +100,6 @@ public class MenuFragment extends Fragment{
 
         return binding.getRoot();
     }
+
+
 }

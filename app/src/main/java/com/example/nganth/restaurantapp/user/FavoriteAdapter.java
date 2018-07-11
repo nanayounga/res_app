@@ -1,5 +1,6 @@
 package com.example.nganth.restaurantapp.user;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -11,10 +12,13 @@ import android.widget.Toast;
 import com.example.nganth.restaurantapp.R;
 import com.example.nganth.restaurantapp.Restaurant;
 import com.example.nganth.restaurantapp.databinding.ItemFavoriteBinding;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class FavoriteAdapter extends RecyclerView.Adapter {
+    private static final String IMAGE_PATH = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=";
+
     public interface Callback {
         void onItemSelected(int position, String value);
     }
@@ -71,6 +75,9 @@ public class FavoriteAdapter extends RecyclerView.Adapter {
 
         if (TextUtils.isEmpty(data.resImage)) {
             binding.imgRestaurant.setImageResource(R.drawable.img_res);
+        } else {
+            Context context = holder.itemView.getContext();
+            Picasso.with(context).load(IMAGE_PATH + data.getResImage()).placeholder(R.mipmap.ic_launcher).into(binding.imgRestaurant);
         }
     }
 

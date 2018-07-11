@@ -1,18 +1,26 @@
 package com.example.nganth.restaurantapp.user;
 
+import android.content.ContentValues;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.nganth.restaurantapp.BaseActivity;
+import com.example.nganth.restaurantapp.MySqliteOpenHelper;
 import com.example.nganth.restaurantapp.Restaurant;
+import com.example.nganth.restaurantapp.restaurant.ViewPagerMenuActivity;
 
 import java.util.ArrayList;
 
 
 public class FavoriteActivity extends BaseActivity {
-
+    private SQLiteDatabase database;
     private com.example.nganth.restaurantapp.databinding.FavoriteBinding binding;
 
     ArrayList<Restaurant> restaurants = new ArrayList<>();
@@ -23,24 +31,12 @@ public class FavoriteActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding = android.databinding.DataBindingUtil.setContentView(this, com.example.nganth.restaurantapp.R.layout.favorite);
 
-//        android.content.Intent intent = getIntent();
+        MySqliteOpenHelper openHelper = new
+                MySqliteOpenHelper(getApplicationContext());
 
-        // data is string
-//        List<String> list = new ArrayList<>();
-//        list.add("Wabi Sabi restaurant");
-//        list.add("Marianne restaurant");
-//        list.add("TheFive Fields restaurant");
-//        list.add("TortelliniCup London restaurant");
-
-        // data is object
-
-        restaurants.add(new Restaurant("Nha hang 1","Dia chi 1", null));
-        restaurants.add(new Restaurant("Nha hang 2","Dia chi 2", null));
-        restaurants.add(new Restaurant("Nha hang 3","Dia chi 3", null));
-        restaurants.add(new Restaurant("Nha hang 4","Dia chi 4", null));
-        restaurants.add(new Restaurant("Nha hang 5","Dia chi 5", null));
-        restaurants.add(new Restaurant("Nha hang 6","Dia chi 6", null));
-        restaurants.add(new Restaurant("Nha hang 7","Dia chi 7", null));
+        database = openHelper.getWritableDatabase();
+//        insert();
+        find(null);
 
         // Khoi tao Adapter
         adapter = new FavoriteAdapter(restaurants);
@@ -68,5 +64,47 @@ public class FavoriteActivity extends BaseActivity {
     public void openProfileActivity(android.view.View view) {
         android.content.Intent intent = new android.content.Intent(getApplicationContext(), ProfileActivity.class);
         startActivity(intent);
+    }
+
+    public void find(View view) {
+        Cursor cursor = database.query("favorites",null, null, null, null, null, "id DESC");
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                int index = cursor.getColumnIndex("id"); // == 0;
+                String resId = cursor.getString(1);
+                String resName = cursor.getString(2);
+                String resAdd = cursor.getString(3);
+                String resImage = cursor.getString(4);
+                Float resRate = cursor.getFloat(5);
+                String userEmail = cursor.getString(6);
+
+                restaurants.add(new Restaurant(resId, resName, resAdd, resImage, userEmail, resRate));
+            }
+        }
+    }
+
+    private void insert() {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("res_id", "1");// thêm giá trị cho cột hoten
+        contentValues.put("res_name", "Restaurant 3");// thêm giá trị cho cột hoten
+        contentValues.put("res_add", "DN");// thêm giá trị cho cột diachi
+        contentValues.put("res_img", "CmRaAAAAX-LywgyVrefPrIbLJOb7okwPLPkNCIr6WojhpWlBf72oPxQ8zZp8FEa58CdlUsw4v2rP15yHclWr1cu7qwqUC7QIFwxQivvoX6i4xdGFe3XU0sJ6ZVWxUee0xchf2FcyEhDCrBfRpbidfULwLhIsZj01GhSs_onrfczoUCE2qNI1Z6xOR5SWGw&key=AIzaSyCEOvWIiRye57Hwi6nQoTkL7FuXX0--0xs");
+        contentValues.put("res_rate", 5);
+        contentValues.put("user_email", "nganth@evolableasia.vn");
+        long id = database.insert(
+                "favorites", // tên bảng
+                null,
+                contentValues // dữ liệu của 1 dòng
+        );
+
+//        Toast.makeText(getApplicationContext(), String.valueOf(id), Toast.LENGTH_LONG).show();
+    }
+
+    public void delete() {
+        int count = database.delete("favorites",
+                "id = 4",
+                null
+        );
+//        Toast.makeText(getApplicationContext(), String.valueOf(count), Toast.LENGTH_LONG).show();
     }
 }

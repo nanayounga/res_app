@@ -32,6 +32,7 @@
     <string name="confirm_password_new">Confirm New Password</string>
     <!-- Favorite -->
     <string name="title_favorite">私のお気に入り</string>
+    <string name="add_favorite">お気に入りを追加</string>
     <!-- Menu -->
     <string name="title_menu">メニュー</string>
     <string name="title_about">約</string>

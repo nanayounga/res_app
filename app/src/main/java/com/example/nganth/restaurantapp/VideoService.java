@@ -98,6 +98,7 @@ public class VideoService extends Service {
     //-- https://stackoverflow.com/questions/46990995/on-android-8-1-api-27-notification-does-not-display
     private void showNotification() {
         String id = "my_package_channel_1"; // The user-visible name of the channel.
+        final int NOTIFY_ID = 1002;
 
         NotificationCompat.Builder notification;
 
@@ -161,7 +162,7 @@ public class VideoService extends Service {
                 PendingIntent.FLAG_UPDATE_CURRENT);
         contentView.setOnClickPendingIntent(R.id.btnClose, pendingIntentClose);
 
-        notifManager.notify(11, notification.build());
+        notifManager.notify(NOTIFY_ID, notification.build());
     }
 
     public void onDestroy() {
