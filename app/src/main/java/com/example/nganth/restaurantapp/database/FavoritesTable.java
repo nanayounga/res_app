@@ -10,10 +10,6 @@ import com.example.nganth.restaurantapp.Restaurant;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by HV on 7/11/2018.
- */
-
 public class FavoritesTable {
     private SQLiteDatabase database;
     private static final String TABLE_NAME = "favorites";
