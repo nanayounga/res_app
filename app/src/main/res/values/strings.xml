@@ -60,4 +60,5 @@
     <string name="place_details">%1$s</string>
     <string name="title_activity_walkthought">WalkthoughtActivity</string>
     <string name="title_activity_review">ReviewActivity</string>
+    <string name="title_activity_web_view">WebViewActivity</string>
 </resources>

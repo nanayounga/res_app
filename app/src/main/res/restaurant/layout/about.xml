@@ -111,6 +111,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:onClick="@{(view) -> variableAbout.showWeb(view)}"
                 android:text="https://www.youtube.com/watch?v=KY6eSPl0CvU"
                 android:textColor="@color/colorNavi"
                 app:layout_constraintEnd_toEndOf="parent"

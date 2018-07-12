@@ -23,6 +23,8 @@ import android.widget.Toast;
 import com.example.nganth.restaurantapp.BaseActivity;
 //import com.example.nganth.restaurantapp.Manifest;
 import com.example.nganth.restaurantapp.R;
+import com.example.nganth.restaurantapp.Restaurant;
+import com.example.nganth.restaurantapp.database.FavoritesTable;
 import com.example.nganth.restaurantapp.databinding.ActivityViewPagerMenuBinding;
 
 //https://developers.google.com/places/web-service/details
@@ -42,6 +44,7 @@ public class ViewPagerMenuActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_view_pager_menu);
+        binding.setVariableMenu(this);
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -60,6 +63,14 @@ public class ViewPagerMenuActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
+                //region demo show notification
+                if (position == 1) {
+                    sendBroadcast(new Intent("notify"));
+                } else {
+                    sendBroadcast(new Intent("close"));
+                }
+
+                //endregion
                 for (int i = 0; i < binding.tabLayoutMenu.getTabCount(); i++) {
                     TabLayout.Tab tab = binding.tabLayoutMenu.getTabAt(i);
 
@@ -105,10 +116,19 @@ public class ViewPagerMenuActivity extends BaseActivity {
         }
 
         binding.viewPagerMenu.setCurrentItem(page);
+
+
     }
 
     public void showAbout(View view) {
         android.content.Intent intent = new android.content.Intent(getApplicationContext(), com.example.nganth.restaurantapp.restaurant.ViewPagerMenuActivity.class);
+        startActivity(intent);
+    }
+
+    public void showWeb(View view) {
+        android.content.Intent intent = new android.content.Intent(getApplicationContext(), com.example.nganth.restaurantapp.restaurant.WebViewActivity.class);
+        TextView textView = (TextView) view;
+        intent.putExtra("url", textView.getText().toString());
         startActivity(intent);
     }
 
@@ -128,7 +148,11 @@ public class ViewPagerMenuActivity extends BaseActivity {
     }
 
     public void addFavorites(View view) {
-        android.content.Intent intent = new android.content.Intent(getApplicationContext(), com.example.nganth.restaurantapp.user.FavoriteActivity.class);
-        startActivity(intent);
+        /*android.content.Intent intent = new android.content.Intent(getApplicationContext(), com.example.nganth.restaurantapp.user.FavoriteActivity.class);
+        startActivity(intent);*/
+
+        FavoritesTable favoritesTable = new FavoritesTable(this);
+        favoritesTable.insert(
+                new Restaurant("1", "1", "1", "1", "1", 2F));
     }
 }

@@ -1,5 +1,7 @@
 package com.example.nganth.restaurantapp;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -12,6 +14,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
@@ -21,6 +24,7 @@ public class VideoService extends Service {
     private MediaPlayer mediaPlayer;
     private BroadcastReceiver broadcastReceiver;
     private NotificationManager notifManager;
+    final int NOTIFY_ID = 1002;
 
     public VideoService() {
     }
@@ -33,49 +37,8 @@ public class VideoService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        broadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                if (intent.getAction().equals("pause")) {
-                    mediaPlayer.pause();
-                } else if (intent.getAction().equals("next")) {
-                    mediaPlayer.stop();
-                    mediaPlayer.reset();
-
-                    try {
-                        mediaPlayer.setDataSource("/storage/emulated/0/Download/food.mp4");
-//                        mediaPlayer.setDataSource("https://www.youtube.com/embed/6ZAedvxTHcI");
-                        mediaPlayer.prepare();
-                        mediaPlayer.start();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else if (intent.getAction().equals("close")) {
-                    // đóng đối tượng phát nhạc
-                    mediaPlayer.stop();
-                    mediaPlayer.release();
-
-                    // đóng notification
-                    stopForeground(true);
-                }
-            }
-        };
-
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("pause");
-        intentFilter.addAction("next");
-        intentFilter.addAction("close");
-        registerReceiver(broadcastReceiver, intentFilter);
-
-        showNotification();
-
         if (mediaPlayer == null) {
-            mediaPlayer = new MediaPlayer();
-        }
-        try {
-            mediaPlayer.setDataSource("/storage/emulated/0/Download/food.mp4");
-//            mediaPlayer.setDataSource("https://www.youtube.com/embed/6ZAedvxTHcI");
-            mediaPlayer.prepare();
+            mediaPlayer  = MediaPlayer.create(VideoService.this, R.raw.aaa);
             mediaPlayer.start();
 
             //-- bat su kien khi nghe het nhac
@@ -86,20 +49,61 @@ public class VideoService extends Service {
                     Log.e("Video", "Testing het nhac");
                 }
             });
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-
+        //            mediaPlayer.setDataSource("https://www.youtube.com/embed/6ZAedvxTHcI");
+        //mediaPlayer.prepare();
         return START_NOT_STICKY;
     }
 
-    //-- 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (intent.getAction().equals("pause")) {
+                    mediaPlayer.pause();
+                } else if (intent.getAction().equals("next")) {
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                    mediaPlayer = MediaPlayer.create(VideoService.this, R.raw.aaa);
+//                        mediaPlayer.setDataSource("https://www.youtube.com/embed/6ZAedvxTHcI");
+                    //mediaPlayer.prepare();
+                    mediaPlayer.start();
+                } else if (intent.getAction().equals("close")) {
+                    // đóng đối tượng phát nhạc
+                    mediaPlayer.stop();
+                    mediaPlayer.release();
+                    mediaPlayer = null;
+                    // đóng notification
+                    //stopForeground(true);
+                    notifManager.cancel(NOTIFY_ID);
+                } else if (intent.getAction().equals("notify")) {
+                    showNotification();
+                }
+            }
+        };
+
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("pause");
+        intentFilter.addAction("next");
+        intentFilter.addAction("close");
+        intentFilter.addAction("notify");
+        registerReceiver(broadcastReceiver, intentFilter);
+    }
+
+    //--
     //-- https://stackoverflow.com/questions/46990995/on-android-8-1-api-27-notification-does-not-display
     private void showNotification() {
-        String id = "my_package_channel_1"; // The user-visible name of the channel.
-        final int NOTIFY_ID = 1002;
 
+        // There are hardcoding only for show it's just strings
+        String name = "my_package_channel";
+        String id = "my_package_channel_1"; // The user-visible name of the channel.
+        String description = "my_package_first_channel"; // The user-visible description of the channel.
+
+        Intent intent;
+        PendingIntent pendingIntent;
         NotificationCompat.Builder notification;
 
         if (notifManager == null) {
@@ -108,16 +112,48 @@ public class VideoService extends Service {
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notification = new NotificationCompat.Builder(getApplicationContext(), id);
-            notification.setContentTitle("Video")  // required
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel mChannel = notifManager.getNotificationChannel(id);
+            if (mChannel == null) {
+                mChannel = new NotificationChannel(id, name, importance);
+                mChannel.setDescription(description);
+                mChannel.enableVibration(true);
+                mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
+                notifManager.createNotificationChannel(mChannel);
+            }
+            notification = new NotificationCompat.Builder(this, id);
+
+            intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+            notification.setContentTitle("Food Video")  // required
                     .setSmallIcon(android.R.drawable.ic_popup_reminder) // required
-                    .setContentText(this.getString(R.string.app_name));  // required
+                    .setContentText(this.getString(R.string.app_name))  // required
+                    .setDefaults(Notification.DEFAULT_ALL)
+                    .setAutoCancel(true)
+                    .setContentIntent(pendingIntent)
+                    .setTicker("Food Video")
+                    .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
         } else {
-            notification = new NotificationCompat.Builder(getApplicationContext());
-            notification.setContentTitle("Video")                           // required
+
+            notification = new NotificationCompat.Builder(this);
+
+            intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+            notification.setContentTitle("Food Video")                           // required
                     .setSmallIcon(android.R.drawable.ic_popup_reminder) // required
-                    .setContentText(this.getString(R.string.app_name));  // required
+                    .setContentText(this.getString(R.string.app_name))  // required
+                    .setDefaults(Notification.DEFAULT_ALL)
+                    .setAutoCancel(true)
+                    .setContentIntent(pendingIntent)
+                    .setTicker("Food Video")
+                    .setVibrate(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400})
+                    .setPriority(Notification.PRIORITY_HIGH);
         }
+
 
 //        Notification.Builder notification = new Notification.Builder(getApplicationContext());
 

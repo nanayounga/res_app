@@ -19,35 +19,38 @@
             android:value="AIzaSyCEOvWIiRye57Hwi6nQoTkL7FuXX0--0xs" />
 
         <activity android:name=".MainActivity">
-
-        </activity>
-        <activity android:name=".user.SignInActivity" />
-        <activity android:name=".user.SignUpActivity" />
-        <activity android:name=".user.FavoriteActivity" >
-
-        </activity>
-        <activity android:name=".user.ProfileActivity" />
-        <activity android:name=".user.ChangePasswordActivity" />
-        <activity
-            android:name=".restaurant.RestaurantActivity"
-            android:label="@string/title_activity_restaurant"></activity>
-        <activity
-            android:name=".restaurant.ViewPagerMenuActivity"
-            android:label="@string/title_activity_view_pager_menu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".user.SignInActivity" />
+        <activity android:name=".user.SignUpActivity" />
+        <activity android:name=".user.FavoriteActivity"></activity>
+        <activity android:name=".user.ProfileActivity" />
+        <activity android:name=".user.ChangePasswordActivity" />
+        <activity
+            android:name=".restaurant.RestaurantActivity"
+            android:label="@string/title_activity_restaurant" />
+        <activity
+            android:name=".restaurant.ViewPagerMenuActivity"
+            android:label="@string/title_activity_view_pager_menu">
+
+        </activity>
         <activity
             android:name=".restaurant.ViewPagerWalkthoughtActivity"
-            android:label="@string/title_activity_walkthought"></activity>
+            android:label="@string/title_activity_walkthought" />
 
         <service
             android:name=".VideoService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity
+            android:name=".restaurant.WebViewActivity"
+            android:label="@string/title_activity_web_view"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
