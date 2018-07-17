@@ -29,6 +29,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.nganth.restaurantapp.BaseActivity;
 //import com.example.nganth.restaurantapp.Manifest;
 import com.example.nganth.restaurantapp.DataRestaurant;
+import com.example.nganth.restaurantapp.Place;
 import com.example.nganth.restaurantapp.R;
 import com.example.nganth.restaurantapp.Restaurant;
 import com.example.nganth.restaurantapp.database.FavoritesTable;
@@ -66,8 +67,8 @@ public class ViewPagerMenuActivity extends BaseActivity {
         getResFromAPI();
 
         //--region: gan du lieu restaurant vao field
-        binding.txtResNameInMenuPage.setText(restaurant_api != null ? restaurant_api.get(0).resName : "name testing");
-        binding.txtResAddressInMenuPage.setText(restaurant_api != null ? restaurant_api.get(0).resAddress : "address testing");
+        binding.txtResNameInMenuPage.setText(restaurant_api != null ? restaurant_api.get(0).getResName() : "name testing");
+        binding.txtResAddressInMenuPage.setText(restaurant_api != null ? restaurant_api.get(0).getResAddress() : "address testing");
         //--endregion: gan du lieu restaurant vao field
 
         PagerMenuAdapter adapter = new PagerMenuAdapter(getSupportFragmentManager());
@@ -148,7 +149,7 @@ public class ViewPagerMenuActivity extends BaseActivity {
         // key=AIzaSyCEOvWIiRye57Hwi6nQoTkL7FuXX0--0xs
 
         String placeId = "ChIJ15256JXBiYgRJe9BObOLjtM";
-        String params = "photo,name,rating,formatted_phone_number,formatted_address,url,website,place_id";
+        String params = "photo,name,rating,formatted_phone_number,formatted_address,url,website,place_id,geometry";
         RequestQueue queue = Volley.newRequestQueue(this);
         String url ="https://maps.googleapis.com/maps/api/place/details/json?" +
                 "placeid=" + placeId + "&" +
@@ -161,6 +162,8 @@ public class ViewPagerMenuActivity extends BaseActivity {
                     public void onResponse(String response) {
 
                         String res_photo = null;
+                        Double par_lat = null;
+                        Double par_lng = null;
 
                         // khoi tao danh sach diem can phai ve
                         List<DataRestaurant> list = new ArrayList<>();
@@ -173,9 +176,17 @@ public class ViewPagerMenuActivity extends BaseActivity {
                             for (DataRestaurant.Result.Photos photo : data.result.photos) {
                                 res_photo = photo.photo_reference;
                             }
+//                            for (DataRestaurant.Result.Geometry geometry : data.result.geometry) {
+//                                for (DataRestaurant.Result.Geometry.Location location : geometry.location) {
+//                                    par_lat = location.lat;
+//                                    par_lng = location.lng;
+//                                }
+//                            }
+//                            Log.d("Rest API", Double.toString(par_lat));
 
+//                            restaurant_api.add(new Place(data.result.place_id, null, data.result.name, data.result.formatted_address, data.result.formatted_phone_number, res_photo, par_lat, par_lng));
 //                            restaurant_api.add(new Restaurant(data.result.place_id, data.result.name, data.result.formatted_address, res_photo, "nga@abc.com", data.result.rating));
-                            restaurant_api.add(new Restaurant("asdf", "asdf", "asdf", "asdf", "asdf", 2F));
+//                            restaurant_api.add(new Restaurant("asdf", "asdf", "asdf", "asdf", "asdf", 2F));
 //                            Log.d("Rest API", data.result.place_id);
 //                            Log.d("Rest API", data.result.name);
 //                            Log.d("Rest API", data.result.formatted_address);
@@ -230,6 +241,6 @@ public class ViewPagerMenuActivity extends BaseActivity {
         FavoritesTable favoritesTable = new FavoritesTable(this);
 //        favoritesTable.insert(
 //                new Restaurant(restaurant_api.get(0).resId, restaurant_api.get(0).resName, restaurant_api.get(0).resAddress, restaurant_api.get(0).resImage, restaurant_api.get(0).userEmail, restaurant_api.get(0).resRate));
-        favoritesTable.insert(new Restaurant("2", "2", "adfj", "lajsdfkl", "asdf@asdlkjf.com", 2F));
+        favoritesTable.insert(new Restaurant("3", "3", "adfj", "CmRaAAAAX-LywgyVrefPrIbLJOb7okwPLPkNCIr6WojhpWlBf72oPxQ8zZp8FEa58CdlUsw4v2rP15yHclWr1cu7qwqUC7QIFwxQivvoX6i4xdGFe3XU0sJ6ZVWxUee0xchf2FcyEhDCrBfRpbidfULwLhIsZj01GhSs_onrfczoUCE2qNI1Z6xOR5SWGw", "asdf@asdlkjf.com", 2F));
     }
 }

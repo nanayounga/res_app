@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class FavoriteAdapter extends RecyclerView.Adapter {
-    private static final String IMAGE_PATH = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=";
+    private static final String IMAGE_PATH = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyCEOvWIiRye57Hwi6nQoTkL7FuXX0--0xs&photoreference=";
 
     public interface Callback {
         void onItemSelected(int position, String value);
@@ -77,6 +77,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter {
             binding.imgRestaurant.setImageResource(R.drawable.img_res);
         } else {
             Context context = holder.itemView.getContext();
+//            Picasso.with(context).load(IMAGE_PATH + data.getResImage()).placeholder(R.mipmap.ic_launcher).into(binding.imgRestaurant);
             Picasso.with(context).load(IMAGE_PATH + data.getResImage()).placeholder(R.mipmap.ic_launcher).into(binding.imgRestaurant);
         }
     }

@@ -76,9 +76,11 @@ public class VideoService extends Service {
                     mediaPlayer.start();
                 } else if (intent.getAction().equals("close")) {
                     // đóng đối tượng phát nhạc
-                    mediaPlayer.stop();
-                    mediaPlayer.release();
-                    mediaPlayer = null;
+                    if (mediaPlayer != null) {
+                        mediaPlayer.stop();
+                        mediaPlayer.release();
+                        mediaPlayer = null;
+                    }                              
                     // đóng notification
                     //stopForeground(true);
                     notifManager.cancel(NOTIFY_ID);

@@ -13,5 +13,14 @@ public class DataRestaurant {
         public class Photos {
             public String photo_reference;
         }
+
+//        public List<Geometry> geometry;
+//        public class Geometry {
+//            public List<Location> location;
+//
+//            public class Location {
+//                public Double lat, lng;
+//            }
+//        }
     }
 }
