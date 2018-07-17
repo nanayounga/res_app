@@ -20,12 +20,23 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.nganth.restaurantapp.BaseActivity;
 //import com.example.nganth.restaurantapp.Manifest;
+import com.example.nganth.restaurantapp.DataRestaurant;
 import com.example.nganth.restaurantapp.R;
 import com.example.nganth.restaurantapp.Restaurant;
 import com.example.nganth.restaurantapp.database.FavoritesTable;
 import com.example.nganth.restaurantapp.databinding.ActivityViewPagerMenuBinding;
+import com.google.gson.Gson;
+
+import java.util.ArrayList;
+import java.util.List;
 
 //https://developers.google.com/places/web-service/details
 //-- get restaurant detail
@@ -38,6 +49,7 @@ public class ViewPagerMenuActivity extends BaseActivity {
     private ActivityViewPagerMenuBinding binding;
     private FragmentManager fragmentManager;
     private int page = 0;
+    public ArrayList<Restaurant> restaurant_api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +62,13 @@ public class ViewPagerMenuActivity extends BaseActivity {
         if (intent != null) {
             page = intent.getIntExtra("pageNumber", 0);
         }
+
+        getResFromAPI();
+
+        //--region: gan du lieu restaurant vao field
+        binding.txtResNameInMenuPage.setText(restaurant_api != null ? restaurant_api.get(0).resName : "name testing");
+        binding.txtResAddressInMenuPage.setText(restaurant_api != null ? restaurant_api.get(0).resAddress : "address testing");
+        //--endregion: gan du lieu restaurant vao field
 
         PagerMenuAdapter adapter = new PagerMenuAdapter(getSupportFragmentManager());
 
@@ -120,6 +139,66 @@ public class ViewPagerMenuActivity extends BaseActivity {
 
     }
 
+    public void getResFromAPI() {
+        //region: get restaurant from api
+        // link:
+        // https://maps.googleapis.com/maps/api/place/details/json?
+        // placeid=ChIJ15256JXBiYgRJe9BObOLjtM&
+        // fields=photo,name,rating,formatted_phone_number,formatted_address,url,website,place_id&
+        // key=AIzaSyCEOvWIiRye57Hwi6nQoTkL7FuXX0--0xs
+
+        String placeId = "ChIJ15256JXBiYgRJe9BObOLjtM";
+        String params = "photo,name,rating,formatted_phone_number,formatted_address,url,website,place_id";
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="https://maps.googleapis.com/maps/api/place/details/json?" +
+                "placeid=" + placeId + "&" +
+                "fields=" + params + "&" +
+                "key=AIzaSyCEOvWIiRye57Hwi6nQoTkL7FuXX0--0xs";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        String res_photo = null;
+
+                        // khoi tao danh sach diem can phai ve
+                        List<DataRestaurant> list = new ArrayList<>();
+
+//                        Log.d("Rest API", response);
+                        Gson gson = new Gson();
+                        DataRestaurant data = gson.fromJson(response, DataRestaurant.class);
+
+                        if (data != null) {
+                            for (DataRestaurant.Result.Photos photo : data.result.photos) {
+                                res_photo = photo.photo_reference;
+                            }
+
+//                            restaurant_api.add(new Restaurant(data.result.place_id, data.result.name, data.result.formatted_address, res_photo, "nga@abc.com", data.result.rating));
+                            restaurant_api.add(new Restaurant("asdf", "asdf", "asdf", "asdf", "asdf", 2F));
+//                            Log.d("Rest API", data.result.place_id);
+//                            Log.d("Rest API", data.result.name);
+//                            Log.d("Rest API", data.result.formatted_address);
+//                            Log.d("Rest API", res_photo);
+//                            Log.d("Rest API", Float.toString(data.result.rating));
+
+                        } else {
+                            Log.d("Rest API", "no data");
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Data from API: ", error.getMessage());
+
+            }
+        });
+
+        queue.add(stringRequest);
+        //endregion
+    }
+
     public void showAbout(View view) {
         android.content.Intent intent = new android.content.Intent(getApplicationContext(), com.example.nganth.restaurantapp.restaurant.ViewPagerMenuActivity.class);
         startActivity(intent);
@@ -148,11 +227,9 @@ public class ViewPagerMenuActivity extends BaseActivity {
     }
 
     public void addFavorites(View view) {
-        /*android.content.Intent intent = new android.content.Intent(getApplicationContext(), com.example.nganth.restaurantapp.user.FavoriteActivity.class);
-        startActivity(intent);*/
-
         FavoritesTable favoritesTable = new FavoritesTable(this);
-        favoritesTable.insert(
-                new Restaurant("1", "1", "1", "1", "1", 2F));
+//        favoritesTable.insert(
+//                new Restaurant(restaurant_api.get(0).resId, restaurant_api.get(0).resName, restaurant_api.get(0).resAddress, restaurant_api.get(0).resImage, restaurant_api.get(0).userEmail, restaurant_api.get(0).resRate));
+        favoritesTable.insert(new Restaurant("2", "2", "adfj", "lajsdfkl", "asdf@asdlkjf.com", 2F));
     }
 }

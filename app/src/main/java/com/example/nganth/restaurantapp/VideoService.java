@@ -36,7 +36,7 @@ public class VideoService extends Service {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public int onStartCommand(final Intent intent, int flags, int startId) {
         if (mediaPlayer == null) {
             mediaPlayer  = MediaPlayer.create(VideoService.this, R.raw.aaa);
             mediaPlayer.start();
@@ -45,6 +45,9 @@ public class VideoService extends Service {
             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
                 public void onCompletion(MediaPlayer mediaPlayer) {
+                    Intent it = new Intent("broadcast");
+                    it.putExtra("star", 5);
+                    sendBroadcast(intent);
                     Toast.makeText(getApplicationContext(), "het nhac roi nhe", Toast.LENGTH_LONG).show();
                     Log.e("Video", "Testing het nhac");
                 }

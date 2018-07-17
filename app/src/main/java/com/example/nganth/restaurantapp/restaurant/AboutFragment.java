@@ -1,17 +1,23 @@
 package com.example.nganth.restaurantapp.restaurant;
 
 import android.Manifest;
+import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.nganth.restaurantapp.R;
 import com.example.nganth.restaurantapp.VideoService;
@@ -21,6 +27,21 @@ import com.example.nganth.restaurantapp.databinding.AboutBinding;
 
 public class AboutFragment extends Fragment {
     private AboutBinding binding;
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals("broadcast")) {
+                int star = intent.getIntExtra("star", 0);
+
+                Dialog dialog = new Dialog(getContext());
+                dialog.setTitle("dialog");
+                TextView textView = new TextView(getContext());
+                textView.setText(String.valueOf(star) + "Nga is testing");
+                dialog.setContentView(textView);
+                dialog.show();
+            }
+        }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -41,6 +62,8 @@ public class AboutFragment extends Fragment {
         }
         //-- end service video in about page
 
+        getContext().registerReceiver(broadcastReceiver, new IntentFilter("broadcast"));
+
         return binding.getRoot();
     }
 
@@ -57,4 +80,9 @@ public class AboutFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getContext().unregisterReceiver(broadcastReceiver);
+    }
 }
