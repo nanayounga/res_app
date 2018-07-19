@@ -6,6 +6,7 @@ public class Place implements Serializable {
 
         Double lat,lng;
         String placeId,icon, name, formatted_address, formatted_phone_number, reference;
+        float ratting;
 
         public Place(){};
         public Place(String placeId, String icon, String name, String address, String phone, String reference, Double lat, Double lng) {
@@ -19,7 +20,15 @@ public class Place implements Serializable {
             this.lng  = lng;
         }
 
-        public String getPlaceId() {
+    public float getRatting() {
+        return ratting;
+    }
+
+    public void setRatting(float ratting) {
+        this.ratting = ratting;
+    }
+
+    public String getPlaceId() {
             return placeId;
         }
 

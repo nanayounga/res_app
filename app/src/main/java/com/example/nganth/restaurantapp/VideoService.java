@@ -80,7 +80,7 @@ public class VideoService extends Service {
                         mediaPlayer.stop();
                         mediaPlayer.release();
                         mediaPlayer = null;
-                    }                              
+                    }
                     // đóng notification
                     //stopForeground(true);
                     notifManager.cancel(NOTIFY_ID);

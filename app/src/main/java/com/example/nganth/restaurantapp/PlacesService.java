@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.util.Log;
 
 import java.io.IOException;
@@ -13,8 +14,17 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.List;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.nganth.restaurantapp.Place;
+import com.google.gson.Gson;
+
 /**
  * @author saxman
  */
@@ -31,6 +41,72 @@ public class PlacesService {
 
     // KEY!
     private static final String API_KEY = "AIzaSyCEOvWIiRye57Hwi6nQoTkL7FuXX0--0xs";
+
+
+    //region demo callback
+    public interface RestaurantCallback {
+        void result(Place place);
+    }
+    public static void getResFromAPI(Context context, String placeId, final RestaurantCallback callback) {
+        if (callback == null) return;;
+
+        //region: get restaurant from api
+        // link:
+        // https://maps.googleapis.com/maps/api/place/details/json?
+        // placeid=ChIJ15256JXBiYgRJe9BObOLjtM&
+        // fields=photo,name,rating,formatted_phone_number,formatted_address,url,website,place_id,geometry&
+        // key=AIzaSyCEOvWIiRye57Hwi6nQoTkL7FuXX0--0xs
+
+        String params = "photo,name,rating,formatted_phone_number,formatted_address,url,website,place_id,geometry";
+        RequestQueue queue = Volley.newRequestQueue(context);
+        String url ="https://maps.googleapis.com/maps/api/place/details/json?" +
+                "placeid=" + placeId + "&" +
+                "fields=" + params + "&" +
+                "key=" + API_KEY;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        String res_photo = null;
+                        Double par_lat = null;
+                        Double par_lng = null;
+
+                        // khoi tao danh sach diem can phai ve
+                        List<DataRestaurant> list = new ArrayList<>();
+
+                        Gson gson = new Gson();
+                        DataRestaurant data = gson.fromJson(response, DataRestaurant.class);
+
+                        if (data != null) {
+                            for (DataRestaurant.Result.Photos photo : data.result.photos) {
+                                res_photo = photo.photo_reference;
+                            }
+                            par_lat = data.result.geometry.location.lat;
+                            par_lng = data.result.geometry.location.lng;
+
+                            Place place = new Place(data.result.place_id, null, data.result.name, data.result.formatted_address, data.result.formatted_phone_number, res_photo, par_lat, par_lng);
+                            place.ratting = data.result.rating;
+                            callback.result(place);
+                        } else {
+                            Log.d("Rest API", "no data");
+                        }
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Data from API: ", error.getMessage());
+
+            }
+        });
+
+        queue.add(stringRequest);
+        //endregion
+    }
+
+    //endregion
 
     public static ArrayList<Place> autocomplete(String input) {
         ArrayList<Place> resultList = null;

@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,11 +23,19 @@ import android.widget.TextView;
 import com.example.nganth.restaurantapp.R;
 import com.example.nganth.restaurantapp.VideoService;
 import com.example.nganth.restaurantapp.databinding.AboutBinding;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 //https://www.technobyte.org/play-video-file-android-studio-using-videoview-tutorial/
-
-public class AboutFragment extends Fragment {
+public class AboutFragment extends Fragment implements OnMapReadyCallback {
+//public class AboutFragment extends Fragment {
     private AboutBinding binding;
+    private GoogleMap mMap;
+
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -62,9 +71,24 @@ public class AboutFragment extends Fragment {
         }
         //-- end service video in about page
 
+        //-- region: maps
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+        //-- endregion: maps
+
         getContext().registerReceiver(broadcastReceiver, new IntentFilter("broadcast"));
 
         return binding.getRoot();
+    }
+
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Add a marker in Sydney, Australia, and move the camera.
+        LatLng res = new LatLng(34.1749039, -86.61975079999999);
+        mMap.addMarker(new MarkerOptions().position(res).title("Marker in Restaurant"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(res, 15));
     }
 
     private void startService() {
