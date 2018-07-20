@@ -151,6 +151,8 @@ public class MainActivity extends AppCompatActivity {
                             android.content.Intent intent = new android.content.Intent(getApplicationContext(), ViewPagerWalkthoughtActivity.class);
                             Bundle bundle=new Bundle();
                             bundle.putSerializable("EXTRA_PLACES",places);
+                            bundle.putDouble("lat", mCurrentLocation.getLatitude());
+                            bundle.putDouble("lng", mCurrentLocation.getLongitude());
                             intent.putExtras(bundle);
                             startActivity(intent);
                         }else{

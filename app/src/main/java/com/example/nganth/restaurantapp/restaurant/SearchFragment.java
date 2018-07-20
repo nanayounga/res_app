@@ -72,7 +72,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
             new LatLng(-40, -168), new LatLng(71, 136)
     );
 
-    private static final float DEFAULT_ZOOM = 20.0f;
+    private static final float DEFAULT_ZOOM = 15.0f;
 
 
     public ArrayList<com.example.nganth.restaurantapp.Place> restaurants = new ArrayList<>();
@@ -85,7 +85,6 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.search);
-
     }
 
     @Override
@@ -155,10 +154,13 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        Bundle bundle = getArguments();
+        restaurants = (ArrayList<com.example.nganth.restaurantapp.Place>) bundle.getSerializable("EXTRA_PLACES");
+        currentLat = bundle.getDouble("lat");
+        currentLng = bundle.getDouble("lng");
 
-        //LatLng sydney = new LatLng(16.068009, 108.213397);
         moveCamera(new LatLng(currentLat, currentLng), DEFAULT_ZOOM, "Your location");
-
+        //Log.d("restaurant i:", "(Length: "+restaurants.size()+")"+restaurants.get(0).getLat()+"***"+restaurants.get(0).getLng());
         addRestaurantMarker();
 
         initSearch();
@@ -173,15 +175,16 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
         }
         restaurantMakers = new ArrayList<>();
         //add marker restaurants
-        for (int i = 0; i < restaurants.size(); i++) {
-            Marker maker = mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(restaurants.get(i).getLat(),restaurants.get(i).getLng()))
-                    .title(restaurants.get(i).getName())
-                    .snippet(restaurants.get(i).getFormatted_address())
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.restaurant)));
-            restaurantMakers.add(maker);
+        if(restaurants.size() >0){
+            for (int i = 0; i < restaurants.size(); i++) {
+                Marker maker = mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(restaurants.get(i).getLat(),restaurants.get(i).getLng()))
+                        .title(restaurants.get(i).getName())
+                        .snippet(restaurants.get(i).getFormatted_address())
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.restaurant)));
+                restaurantMakers.add(maker);
+            }
         }
-
     }
     private void geoLocate() {
         String searchString = mSearchText.getText().toString();

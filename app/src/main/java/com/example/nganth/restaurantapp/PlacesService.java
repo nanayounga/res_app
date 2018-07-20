@@ -211,6 +211,14 @@ public class PlacesService {
                 place.reference = predsJsonArray.getJSONObject(i).getString("reference");
                 place.name = predsJsonArray.getJSONObject(i).getString("name");
                 place.formatted_address = predsJsonArray.getJSONObject(i).getString("vicinity");
+
+                // Create a JSON object hierarchy from the results
+                JSONObject predsGeoJsonObject = predsJsonArray.getJSONObject(i).getJSONObject("geometry");
+                JSONObject predsLocationJsonObject = predsGeoJsonObject.getJSONObject("location");
+
+                place.lat = predsLocationJsonObject.getDouble("lat");
+                place.lng = predsLocationJsonObject.getDouble("lng");
+
                 resultList.add(place);
             }
         } catch (JSONException e) {
