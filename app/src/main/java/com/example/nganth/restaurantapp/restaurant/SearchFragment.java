@@ -297,9 +297,11 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
                 //        place.getId(), place.getAddress(), place.getPhoneNumber(),
                 //        place.getWebsiteUri()));
                 //geoLocate();
-                moveCamera(new LatLng(place.getLatLng().latitude, place.getLatLng().longitude),DEFAULT_ZOOM, place.getName().toString());
-
-                Thread thread = new Thread(new Runnable(){
+                //moveCamera(new LatLng(place.getLatLng().latitude, place.getLatLng().longitude),DEFAULT_ZOOM, place.getName().toString());
+                //restaurants.clear();
+                //restaurants = PlacesService.search("restaurant", place.getLatLng().latitude, place.getLatLng().longitude, 1000);
+                //addRestaurantMarker();
+                /*Thread thread = new Thread(new Runnable(){
                     @Override
                     public void run() {
                         try {
@@ -314,7 +316,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
                         }
                     }
                 });
-                thread.start();
+                thread.start();*/
 
                 places.release();
             } catch (RuntimeRemoteException e) {

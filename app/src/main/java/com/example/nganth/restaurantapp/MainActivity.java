@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
                     try {
 
                         //Get restaurant
-                       // 16.062708, 108.179480
+                        // 16.062708, 108.179480
                         places = PlacesService.search("restaurant", mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude(), 1000);
                         Log.d("debug", "Lat,long"+ mCurrentLocation.getLatitude() +"***"+ mCurrentLocation.getLongitude()+"place size"+ places.size());
                         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
