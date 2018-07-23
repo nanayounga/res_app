@@ -61,4 +61,10 @@
     <string name="title_activity_walkthought">WalkthoughtActivity</string>
     <string name="title_activity_review">ReviewActivity</string>
     <string name="title_activity_web_view">WebViewActivity</string>
+    <string name="language">Language</string>
+    <string name="english">English</string>
+    <string name="japan">Japan</string>
+    <string name="logout">Logout</string>
+    <string name="profile">Profile</string>
+    <string name="walkthought">Walkthought</string>
 </resources>

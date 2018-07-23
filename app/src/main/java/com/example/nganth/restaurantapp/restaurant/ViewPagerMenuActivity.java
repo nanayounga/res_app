@@ -69,9 +69,16 @@ public class ViewPagerMenuActivity extends BaseActivity {
         Intent intent = getIntent();
         if (intent != null) {
             page = intent.getIntExtra("pageNumber", 0);
+            place = (Place) intent.getSerializableExtra("place");
+            if (place != null) {
+                //--region: gan du lieu restaurant vao field
+                binding.txtResNameInMenuPage.setText(place.getName());
+                binding.txtResAddressInMenuPage.setText(place.getFormatted_address());
+                //--endregion: gan du lieu restaurant vao field
+            }
         }
 
-        PlacesService.getResFromAPI(this, "ChIJ15256JXBiYgRJe9BObOLjtM", new PlacesService.RestaurantCallback() {
+        /*PlacesService.getResFromAPI(this, "ChIJ15256JXBiYgRJe9BObOLjtM", new PlacesService.RestaurantCallback() {
             @Override
             public void result(Place place) {
                 if (place == null) return;
@@ -81,7 +88,7 @@ public class ViewPagerMenuActivity extends BaseActivity {
                 binding.txtResAddressInMenuPage.setText(place.getFormatted_address());
                 //--endregion: gan du lieu restaurant vao field
             }
-        });
+        });*/
 
 
 

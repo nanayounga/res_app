@@ -37,9 +37,6 @@ public class FavoriteActivity extends BaseActivity {
         FavoritesTable favoritesTable = new FavoritesTable(this);
         restaurants.addAll(favoritesTable.find());
 
-//        insert();
-        //find(null);
-
         // Khoi tao Adapter
         adapter = new FavoriteAdapter(restaurants);
 

@@ -4,6 +4,10 @@ package com.example.nganth.restaurantapp;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
@@ -13,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.example.nganth.restaurantapp.restaurant.ViewPagerMenuActivity;
 import com.example.nganth.restaurantapp.restaurant.ViewPagerWalkthoughtActivity;
@@ -22,10 +27,33 @@ import com.example.nganth.restaurantapp.user.SignInActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Locale;
+
 public class BaseActivity extends AppCompatActivity {
     public FirebaseUser user;
     @VisibleForTesting
     public ProgressDialog mProgressDialog;
+
+    protected void attachBaseContext(Context newBase) {
+        // đọc thông tin cấu hình đã lưu xuống file
+        SharedPreferences sharedPreferences = newBase.getSharedPreferences("config", MODE_PRIVATE);
+        String lang = sharedPreferences.getString("lang", "en");
+
+
+        Configuration configuration = newBase.getResources().getConfiguration();
+        Locale locale = new Locale(lang);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            configuration.setLocale(locale);
+
+            Context newContext = newBase.createConfigurationContext(configuration);
+            super.attachBaseContext(newContext);
+        } else {// thiet ngon ngu cho phien ban duoi 17
+            configuration.locale = locale;
+            newBase.getResources().updateConfiguration(configuration, newBase.getResources().getDisplayMetrics());
+            super.attachBaseContext(newBase);
+        }
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,8 +77,21 @@ public class BaseActivity extends AppCompatActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        // Đối tượng tạo file lưu trữ config
+        SharedPreferences sharedPreferences = getSharedPreferences("config", MODE_PRIVATE);
+
+        // đối tượng cung cấp các phương thức để ghi dữ liệu xuống file
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
         int id = item.getItemId();
         if (id == R.id.action_logout) {
             logout();
@@ -75,6 +116,31 @@ public class BaseActivity extends AppCompatActivity {
             intent.putExtra("pageNumber", 0);
             startActivity(intent);
         }
+        else if(id == R.id.action_lang_en){
+            //Change language to english
+            Toast.makeText(getApplicationContext(), "English", Toast.LENGTH_LONG).show();
+            // lưu trữ dữ liệu theo tên truy xuất
+            editor.putString("lang", "en");
+            // thực thi ghi dữ liệu xuống file
+            editor.apply();
+
+            // đóng activity và chạy lại activity
+            finish();
+            startActivity(new Intent(this, MainActivity.class));
+        }
+        else if(id == R.id.action_lang_ja){
+            //Change language to japan
+            Toast.makeText(getApplicationContext(), "Japan", Toast.LENGTH_LONG).show();
+            // lưu trữ dữ liệu theo tên truy xuất
+            editor.putString("lang", "ja");
+            // thực thi ghi dữ liệu xuống file
+            editor.apply();
+
+            // đóng activity và chạy lại activity
+            finish();
+            startActivity(new Intent(this, MainActivity.class));
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -94,6 +160,7 @@ public class BaseActivity extends AppCompatActivity {
 
         mProgressDialog.show();
     }
+
 
     public void hideProgressDialog() {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
