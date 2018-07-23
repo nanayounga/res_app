@@ -73,11 +73,17 @@ public class FavoriteAdapter extends RecyclerView.Adapter {
         binding.lblResName.setText(data.resName);
         binding.lblResAddress.setText(data.resAddress);
 
+
+        binding.imageView14.setImageResource(data.resRate >= 1 ? R.drawable.ic_star_yellow : R.drawable.ic_star_gray);
+        binding.imageView15.setImageResource(data.resRate >= 2 ? R.drawable.ic_star_yellow : R.drawable.ic_star_gray);
+        binding.imageView16.setImageResource(data.resRate >= 3 ? R.drawable.ic_star_yellow : R.drawable.ic_star_gray);
+        binding.imageView17.setImageResource(data.resRate >= 4 ? R.drawable.ic_star_yellow : R.drawable.ic_star_gray);
+        binding.imageView18.setImageResource(data.resRate >= 5 ? R.drawable.ic_star_yellow : R.drawable.ic_star_gray);
+
         if (TextUtils.isEmpty(data.resImage)) {
             binding.imgRestaurant.setImageResource(R.drawable.img_res);
         } else {
             Context context = holder.itemView.getContext();
-//            Picasso.with(context).load(IMAGE_PATH + data.getResImage()).placeholder(R.mipmap.ic_launcher).into(binding.imgRestaurant);
             Picasso.with(context).load(IMAGE_PATH + data.getResImage()).placeholder(R.mipmap.ic_launcher).into(binding.imgRestaurant);
         }
     }

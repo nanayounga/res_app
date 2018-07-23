@@ -53,5 +53,10 @@
     <string name="place_details">%1$s</string>
     <string name="title_activity_walkthought">WalkthoughtActivity</string>
     <string name="title_activity_review">ReviewActivity</string>
-
+    <string name="language">言語</string>
+    <string name="english">英語</string>
+    <string name="japan">日本</string>
+    <string name="logout">ログアウト</string>
+    <string name="profile">プロフィール</string>
+    <string name="walkthought">歩くこと</string>
 </resources>

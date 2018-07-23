@@ -37,6 +37,7 @@ import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -60,9 +61,14 @@ public class ViewPagerWalkthoughtActivity extends BaseActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_view_pager_walkthought);
 
         Bundle bundle = getIntent().getExtras();
-        places = (ArrayList<Place>) bundle.getSerializable("EXTRA_PLACES");
-        currentLat = bundle.getDouble("lat");
-        currentLng = bundle.getDouble("lng");
+        if (bundle != null) {
+            Serializable serializable = bundle.getSerializable("EXTRA_PLACES");
+            if (serializable != null) {
+                places = (ArrayList<Place>) serializable;
+            }
+            currentLat = bundle.getDouble("lat");
+            currentLng = bundle.getDouble("lng");
+        }
 
         binding.viewPagerWalkthought.setAdapter(adapter = new PagerWalkthoughtAdapter(getSupportFragmentManager(), places));
         binding.viewPagerWalkthought.setClipToPadding(false);

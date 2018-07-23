@@ -40,8 +40,9 @@
         </activity>
         <activity
             android:name=".restaurant.ViewPagerWalkthoughtActivity"
-            android:label="@string/title_activity_walkthought" />
+            android:label="@string/title_activity_walkthought" >
 
+        </activity>
         <service
             android:name=".VideoService"
             android:enabled="true"

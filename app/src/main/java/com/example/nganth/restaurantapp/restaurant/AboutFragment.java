@@ -15,11 +15,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.nganth.restaurantapp.Place;
+import com.example.nganth.restaurantapp.PlacesService;
 import com.example.nganth.restaurantapp.R;
 import com.example.nganth.restaurantapp.VideoService;
 import com.example.nganth.restaurantapp.databinding.AboutBinding;
@@ -35,13 +38,14 @@ public class AboutFragment extends Fragment implements OnMapReadyCallback {
 //public class AboutFragment extends Fragment {
     private AboutBinding binding;
     private GoogleMap mMap;
+    private Place place;
 
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals("broadcast")) {
                 int star = intent.getIntExtra("star", 0);
-
+                Log.d("Testing music: ", "het nhac roi");
                 Dialog dialog = new Dialog(getContext());
                 dialog.setTitle("dialog");
                 TextView textView = new TextView(getContext());
@@ -59,6 +63,26 @@ public class AboutFragment extends Fragment implements OnMapReadyCallback {
         ViewPagerMenuActivity mainActivity = (ViewPagerMenuActivity) getActivity();
         binding.setVariableAbout(mainActivity);
 
+        //-- region: call API
+        PlacesService.getResFromAPI(getActivity(), "ChIJ15256JXBiYgRJe9BObOLjtM", new PlacesService.RestaurantCallback() {
+            @Override
+            public void result(Place place) {
+                if (place == null) return;
+                AboutFragment.this.place = place;
+                //--region: gan du lieu restaurant vao field
+                binding.txtAddressAbout.setText(place.getFormatted_phone_number());
+                //--endregion: gan du lieu restaurant vao field
+
+                //-- region: maps
+                SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
+                        .findFragmentById(R.id.map);
+                mapFragment.getMapAsync(AboutFragment.this);
+                //-- endregion: maps
+
+            }
+        });
+        //-- endregion call API
+
         //-- begin service video in about page
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (getActivity().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -71,12 +95,6 @@ public class AboutFragment extends Fragment implements OnMapReadyCallback {
         }
         //-- end service video in about page
 
-        //-- region: maps
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-        //-- endregion: maps
-
         getContext().registerReceiver(broadcastReceiver, new IntentFilter("broadcast"));
 
         return binding.getRoot();
@@ -86,9 +104,15 @@ public class AboutFragment extends Fragment implements OnMapReadyCallback {
         mMap = googleMap;
 
         // Add a marker in Sydney, Australia, and move the camera.
-        LatLng res = new LatLng(34.1749039, -86.61975079999999);
+        /*LatLng res = new LatLng(34.1749039, -86.61975079999999);
         mMap.addMarker(new MarkerOptions().position(res).title("Marker in Restaurant"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(res, 15));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(res, 15));*/
+
+        if (place != null) {
+            LatLng res = new LatLng(place.getLat(), place.getLng());
+            mMap.addMarker(new MarkerOptions().position(res).title("Marker in Restaurant"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(res, 15));
+        }
     }
 
     private void startService() {
