@@ -182,6 +182,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
                         .title(restaurants.get(i).getName())
                         .snippet(restaurants.get(i).getFormatted_address())
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.restaurant)));
+
                 restaurantMakers.add(maker);
             }
         }
@@ -288,36 +289,30 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
                 hideSoftKeyboard();
 
                 PlaceBufferResponse places = task.getResult();
+                if(places.getCount() > 0){
+                    // Get the Place object from the buffer.
+                    final Place place = places.get(0);
 
-                // Get the Place object from the buffer.
-                final Place place = places.get(0);
+                    //geoLocate();
+                    moveCamera(new LatLng(place.getLatLng().latitude, place.getLatLng().longitude),DEFAULT_ZOOM, "New position");
+                    restaurants.clear();
 
-                // Format details of the place for display and show it in a TextView.
-                //mCurrentAddress.setText(formatPlaceDetails(getResources(), place.getName(),
-                //        place.getId(), place.getAddress(), place.getPhoneNumber(),
-                //        place.getWebsiteUri()));
-                //geoLocate();
-                //moveCamera(new LatLng(place.getLatLng().latitude, place.getLatLng().longitude),DEFAULT_ZOOM, place.getName().toString());
-                //restaurants.clear();
-                //restaurants = PlacesService.search("restaurant", place.getLatLng().latitude, place.getLatLng().longitude, 1000);
-                //addRestaurantMarker();
-                /*Thread thread = new Thread(new Runnable(){
-                    @Override
-                    public void run() {
-                        try {
-                            //Get restaurant
-                            // 16.062708, 108.179480
-                            restaurants.clear();
-                            restaurants = PlacesService.search("restaurant", place.getLatLng().latitude, place.getLatLng().longitude, 1000);
-                            addRestaurantMarker();
+                    Thread thread = new Thread(new Runnable(){
+                        @Override
+                        public void run() {
+                            try {
+                                //Get restaurant
+                                restaurants = PlacesService.search("restaurant", place.getLatLng().latitude, place.getLatLng().longitude, 1000);
+                                Log.d(TAG, "Run place service search.");
+                                addRestaurantMarker();
 
-                        } catch (Exception e) {
-                            Log.e(TAG, e.getMessage());
+                            } catch (Exception e) {
+                                Log.e(TAG, e.getMessage());
+                            }
                         }
-                    }
-                });
-                thread.start();*/
-
+                    });
+                    thread.start();
+                }
                 places.release();
             } catch (RuntimeRemoteException e) {
                 // Request did not complete successfully
