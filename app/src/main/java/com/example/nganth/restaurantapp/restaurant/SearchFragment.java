@@ -1,12 +1,15 @@
 package com.example.nganth.restaurantapp.restaurant;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -28,6 +31,7 @@ import android.widget.Toast;
 
 import com.example.nganth.restaurantapp.PlacesService;
 import com.example.nganth.restaurantapp.R;
+import com.example.nganth.restaurantapp.Restaurant;
 import com.example.nganth.restaurantapp.databinding.SearchBinding;
 import com.google.android.gms.location.places.AutocompletePrediction;
 import com.google.android.gms.location.places.GeoDataClient;
@@ -79,7 +83,15 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
 
     public Double currentLat;
     public Double currentLng;
-    ArrayList<Marker> restaurantMakers;
+    ArrayList<Marker> restaurantMakers = new ArrayList<>();
+
+    Handler handler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message message) {
+            addRestaurantMarker();
+            return true;
+        }
+    });
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -167,13 +179,14 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void addRestaurantMarker(){
-        if(restaurantMakers != null){
+        /*if(restaurantMakers != null){
             for (int i = 0; i < restaurantMakers.size(); i++) {
                 restaurantMakers.get(i).remove();
                 restaurantMakers.remove(i);
             }
-        }
-        restaurantMakers = new ArrayList<>();
+        }*/
+        restaurantMakers.clear();
+        //restaurantMakers = new ArrayList<>();
         //add marker restaurants
         if(restaurants.size() >0){
             for (int i = 0; i < restaurants.size(); i++) {
@@ -211,6 +224,41 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
         mMap.addMarker(new MarkerOptions().position(latlng).title(title).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlng, DEFAULT_ZOOM));
+
+        /*mMap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+            @Override
+            public View getInfoWindow(final Marker marker) {
+                TextView textView = new TextView(getContext());
+                textView.setText(marker.getTitle());
+                textView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(getContext(), marker.getTitle(), Toast.LENGTH_LONG).show();
+
+
+
+                    }
+                });
+                return textView;
+            }
+
+            @Override
+            public View getInfoContents(Marker marker) {
+                return null;
+            }
+        });*/
+
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                Intent intent = new Intent(getContext(), ViewPagerMenuActivity.class);
+                Restaurant restaurant = (Restaurant) marker.getTag();
+                if (restaurant != null) {
+                    intent.putExtra("place", restaurant);
+                }
+                getActivity().startActivity(intent);
+            }
+        });
 
         // Zoom in, animating the camera.
         //mMap.animateCamera(CameraUpdateFactory.zoomIn());
@@ -291,20 +339,23 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback {
                 PlaceBufferResponse places = task.getResult();
                 if(places.getCount() > 0){
                     // Get the Place object from the buffer.
-                    final Place place = places.get(0);
+                    Place place = places.get(0);
 
                     //geoLocate();
-                    moveCamera(new LatLng(place.getLatLng().latitude, place.getLatLng().longitude),DEFAULT_ZOOM, "New position");
+                    final LatLng latLng = new LatLng(place.getLatLng().latitude, place.getLatLng().longitude);
+
+                    moveCamera(latLng, DEFAULT_ZOOM, "New position");
                     restaurants.clear();
 
                     Thread thread = new Thread(new Runnable(){
                         @Override
                         public void run() {
                             try {
-                                //Get restaurant
-                                restaurants = PlacesService.search("restaurant", place.getLatLng().latitude, place.getLatLng().longitude, 1000);
+                                //Get restaurant 16.06673,108.211981
+                                restaurants = PlacesService.search("restaurant", latLng.latitude, latLng.longitude, 1000);
                                 Log.d(TAG, "Run place service search.");
-                                addRestaurantMarker();
+                                //addRestaurantMarker();
+                                handler.sendEmptyMessage(1);
 
                             } catch (Exception e) {
                                 Log.e(TAG, e.getMessage());

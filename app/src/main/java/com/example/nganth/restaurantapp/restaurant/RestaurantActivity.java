@@ -52,10 +52,13 @@ public class RestaurantActivity extends BaseActivity {
     }
 
     public void showWalkthought(View view) {
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        WalkthoughtFragment fragment = new WalkthoughtFragment();
-        transaction.replace(R.id.fragmentRestaurant, fragment);
-        transaction.commit();
+//        FragmentTransaction transaction = fragmentManager.beginTransaction();
+//        WalkthoughtFragment fragment = new WalkthoughtFragment();
+//        transaction.replace(R.id.fragmentRestaurant, fragment);
+//        transaction.commit();
+
+        android.content.Intent intent = new android.content.Intent(getApplicationContext(), com.example.nganth.restaurantapp.restaurant.ViewPagerWalkthoughtActivity.class);
+        startActivity(intent);
     }
 
     public void showSearch(View view) {

@@ -162,6 +162,7 @@ public class PlacesService {
         return resultList;
     }
 
+    //https://maps.googleapis.com/maps/api/place/search/json?sensor=false&key=AIzaSyB5EOs3RT36APJACuSjayKvJmUTTO9_1Fo&keyword=restaurant&location=16.06673,108.211981&radius=1000
     public static ArrayList<Place> search(String keyword, double lat, double lng, int radius) {
         ArrayList<Place> resultList = null;
 
